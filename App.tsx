@@ -28,7 +28,7 @@ export default function App() {
             headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "#48CFAD",
-              height: 100,
+              height: 110,
               shadowOffset: {
                 width: 0,
                 height: 2,

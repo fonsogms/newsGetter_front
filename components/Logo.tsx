@@ -8,7 +8,7 @@ const Logo = () => {
         height: "100%",
         width: 80,
       }}
-      source={require("../assets/logo(1).png")}
+      source={require("../assets/logo_nocolor.png")}
     ></Image>
   );
 };

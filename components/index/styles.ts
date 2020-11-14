@@ -5,7 +5,7 @@ export const main = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F3F3F3",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   },
 });
 export const title = StyleSheet.create({
@@ -32,5 +32,50 @@ export const usernameView = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: "#E5E5E5",
+  },
+});
+export const inputStyle = StyleSheet.create({
+  container: {
+    fontFamily: "Mohave-Medium",
+    height: 40,
+    color: "#979494",
+    fontSize: 18,
+  },
+});
+
+export const loginButton = StyleSheet.create({
+  container: {
+    backgroundColor: "#48CFAD",
+    width: 68,
+    height: 30,
+    borderRadius: 2,
+    justifyContent: "center",
+  },
+});
+
+export const buttonText = StyleSheet.create({
+  container: {
+    fontFamily: "Mohave-Medium",
+    color: "#FFCE54",
+    fontSize: 24,
+    textAlign: "center",
+  },
+});
+
+export const createAccountText = StyleSheet.create({
+  container: {
+    fontSize: 24,
+    textAlign: "center",
+    fontFamily: "Mohave-Medium",
+    color: "#0066FF",
+    textDecorationLine: "underline",
+  },
+});
+
+export const links = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    height: 120,
   },
 });

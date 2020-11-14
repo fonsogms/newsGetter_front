@@ -1,22 +1,34 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import axios from "axios";
 import { url } from "../../globalVariables";
-import { inputsView, main, title, usernameView } from "./styles";
-import { TextInput } from "react-native-gesture-handler";
+import {
+  inputStyle,
+  inputsView,
+  loginButton,
+  main,
+  title,
+  usernameView,
+  buttonText,
+  createAccountText,
+  links,
+} from "./styles";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 const Indice = () => {
-  const [titulo, setTitulo] = useState("");
   const [username, setUsername] = useState<string>("username");
   const [password, setPassword] = useState<string>("password");
 
-  const onChangeText = async (text: string) => {
-    setUsername(text);
+  const onChangeText = async (text: string, type: string) => {
+    if (type == "username") {
+      setUsername(text);
+    } else {
+      setPassword(text);
+    }
   };
   axios
     .get(url)
     .then(({ data }) => {
       console.log(data);
-      setTitulo(data);
     })
     .catch((err) => {
       err.message;
@@ -30,20 +42,32 @@ const Indice = () => {
       <View style={inputsView.container}>
         <View style={usernameView.container}>
           <TextInput
-            style={{ height: 40 }}
-            onChangeText={(text) => onChangeText(text)}
+            style={inputStyle.container}
+            onChangeText={(text) => onChangeText(text, "username")}
             value={username}
           />
         </View>
         <View style={usernameView.container}>
           <TextInput
-            style={{ height: 40 }}
-            onChangeText={(text) => onChangeText(text)}
+            style={inputStyle.container}
+            onChangeText={(text) => onChangeText(text, "password")}
             value={password}
             secureTextEntry={true}
           />
         </View>
       </View>
+      <View style={links.container}>
+        <TouchableOpacity>
+          <Text style={createAccountText.container}>Create account</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={loginButton.container}>
+          <Text style={buttonText.container}>Login</Text>
+        </TouchableOpacity>
+      </View>
+      <Image
+        style={{ height: 100, resizeMode: "contain" }}
+        source={require("../../assets/logo.png")}
+      ></Image>
     </View>
   );
 };
