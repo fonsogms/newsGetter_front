@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -8,7 +8,7 @@ import { useFonts } from "@expo-google-fonts/inter";
 import { AppLoading } from "expo";
 export default function App() {
   const Stack = createStackNavigator();
-
+  const [token, setToken] = useState<string>("");
   let [fontsLoaded] = useFonts({
     "Mohave-Medium": require("./assets/fonts/Mohave-Medium.otf"),
     "Mohave-Bold": require("./assets/fonts/Mohave-Bold.otf"),
@@ -17,6 +17,7 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading></AppLoading>;
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{}}>

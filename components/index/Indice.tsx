@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { url } from "../../globalVariables";
 import {
   inputStyle,
@@ -14,26 +14,39 @@ import {
   links,
 } from "./styles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { Controller, useForm } from "react-hook-form";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Indice = () => {
+  const { control, handleSubmit, errors } = useForm();
+
   const [username, setUsername] = useState<string>("username");
   const [password, setPassword] = useState<string>("password");
 
-  const onChangeText = async (text: string, type: string) => {
-    if (type == "username") {
-      setUsername(text);
-    } else {
-      setPassword(text);
+  const onSubmit = async (): Promise<void> => {
+    try {
+      const { data } = await axios.post<{ token: string }>(
+        url + "/api/auth/signin",
+        {
+          username,
+          password,
+        }
+      );
+
+      await AsyncStorage.setItem("token", data.token);
+      const value = await AsyncStorage.getItem("token");
+      console.log(value);
+    } catch (err) {
+      console.log(err);
     }
   };
-  axios
+  /*  axios
     .get(url)
     .then(({ data }) => {
       console.log(data);
     })
     .catch((err) => {
       err.message;
-    });
-
+    }); */
   return (
     <View style={main.container}>
       <Text style={title.container}>
@@ -43,24 +56,34 @@ const Indice = () => {
         <View style={usernameView.container}>
           <TextInput
             style={inputStyle.container}
-            onChangeText={(text) => onChangeText(text, "username")}
+            onChangeText={(text) => {
+              setUsername(text);
+            }}
             value={username}
           />
         </View>
         <View style={usernameView.container}>
           <TextInput
             style={inputStyle.container}
-            onChangeText={(text) => onChangeText(text, "password")}
-            value={password}
             secureTextEntry={true}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+            value={password}
           />
         </View>
       </View>
       <View style={links.container}>
         <TouchableOpacity>
-          <Text style={createAccountText.container}>Create account</Text>
+          <Text style={createAccountText.container}>Create accounts</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={loginButton.container}>
+        <TouchableOpacity
+          style={loginButton.container}
+          onPress={() => {
+            console.log("doingit!");
+            onSubmit();
+          }}
+        >
           <Text style={buttonText.container}>Login</Text>
         </TouchableOpacity>
       </View>
