@@ -1,48 +1,41 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Logo from "./components/Logo";
-import Index from "./components/index/Indice";
-import { useFonts } from "@expo-google-fonts/inter";
-import { AppLoading } from "expo";
+import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Routes from "./Routes";
+import axios from "axios";
+import { url } from "./globalVariables";
+import { ActivityIndicator, View } from "react-native";
 export default function App() {
-  const Stack = createStackNavigator();
+  const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
-  let [fontsLoaded] = useFonts({
-    "Mohave-Medium": require("./assets/fonts/Mohave-Medium.otf"),
-    "Mohave-Bold": require("./assets/fonts/Mohave-Bold.otf"),
-    "Mohave-Regular": require("./assets/fonts/Mohave-Regular.otf"),
-  });
-  if (!fontsLoaded) {
-    return <AppLoading></AppLoading>;
-  }
+  useEffect(() => {
+    async function getToken() {
+      try {
+        console.log("happening?");
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{}}>
-        <Stack.Screen
-          name="Home"
-          options={{
-            headerTitle: () => <Logo></Logo>,
-            title: "home",
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: "#48CFAD",
-              height: 110,
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowColor: "#000",
-              shadowOpacity: 0.5,
-              shadowRadius: 3.84,
-              elevation: 100,
-            },
-          }}
-          component={Index}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+        const saved_token = await AsyncStorage.getItem("token");
+        console.log(saved_token);
+        const { data } = await axios.post<{ token: string }>(
+          url + "/api/auth/loggedin",
+          { token: saved_token }
+        );
+        console.log(data, "the data");
+        setToken(data.token);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getToken();
+  }, []);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [token]);
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <ActivityIndicator size="large" color="#48CFAD" />
+      </View>
+    );
+  }
+  return <Routes token={token} setToken={setToken}></Routes>;
 }

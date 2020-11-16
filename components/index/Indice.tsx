@@ -14,11 +14,11 @@ import {
   links,
 } from "./styles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import { Controller, useForm } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const Indice = () => {
-  const { control, handleSubmit, errors } = useForm();
-
+const Indice = (props) => {
+  if (props.token) {
+    props.navigation.navigate("NewsFeed");
+  }
   const [username, setUsername] = useState<string>("username");
   const [password, setPassword] = useState<string>("password");
 
@@ -33,8 +33,10 @@ const Indice = () => {
       );
 
       await AsyncStorage.setItem("token", data.token);
-      const value = await AsyncStorage.getItem("token");
-      console.log(value);
+      props.setToken(data.token);
+      props.navigation.navigate("NewsFeed", {
+        token: props.token,
+      });
     } catch (err) {
       console.log(err);
     }
