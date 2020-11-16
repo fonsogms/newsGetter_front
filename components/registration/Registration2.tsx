@@ -1,7 +1,8 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { Button, Text, View } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import { xorBy } from "lodash";
+import { Icon } from "react-native-elements";
 import {
   inputBox,
   buttonText,
@@ -10,55 +11,29 @@ import {
   main,
   title,
 } from "../globalStyles";
-const items = [
-  {
-    id: "92iijs7yta",
-    name: "Ondo",
-  },
-  {
-    id: "a0s0a8ssbsd",
-    name: "Ogun",
-  },
-  {
-    id: "16hbajsabsd",
-    name: "Calabar",
-  },
-  {
-    id: "nahs75a5sg",
-    name: "Lagos",
-  },
-  {
-    id: "667atsas",
-    name: "Maiduguri",
-  },
-  {
-    id: "hsyasajs",
-    name: "Anambra",
-  },
-  {
-    id: "djsjudksjd",
-    name: "Benue",
-  },
-  {
-    id: "sdhyaysdj",
-    name: "Kaduna",
-  },
-  {
-    id: "suudydjsjd",
-    name: "Abuja",
-  },
-];
+import SelectBox from "react-native-multi-selectbox";
+import {
+  continueButton,
+  politicalButtons,
+  politicalOptionBox,
+  politicalText,
+} from "./style";
+import { countries } from "../../countries";
 
-import { continueButton } from "./style";
 const Registration2 = () => {
-  const data = [
-    { id: 1, label: "Money" },
-    { id: 2, label: "Credit card" },
-    { id: 3, label: "Debit card" },
-    { id: 4, label: "Online payment" },
-    { id: 5, label: "Bitcoin" },
-  ];
-  const onSelectedItemsChange = (selectedItems) => {};
+  enum PoliticalInclination {
+    LEFT = "Left",
+    RIGHT = "Right",
+    CENTER_RIGHT = "Center_right",
+    CENTER_LEFT = "Center_left",
+  }
+  const [selectedLocations, setSelectedLocations] = useState({});
+  console.log(selectedLocations);
+
+  const [
+    politicalInclination,
+    setPoliticalInclination,
+  ] = useState<PoliticalInclination | null>(null);
   return (
     <View
       style={{
@@ -76,9 +51,101 @@ const Registration2 = () => {
       >
         Registration
       </Text>
-
+      <SelectBox
+        label="Select single"
+        options={countries}
+        inputPlaceholder={"Search country"}
+        value={selectedLocations}
+        onChange={(val) => setSelectedLocations(val)}
+        selectIcon={
+          <Icon name={"chevron-down"} type="evilicon" color="#48CFAD" />
+        }
+        hideInputFilter={false}
+        containerStyle={{ margin: 10 }}
+        labelStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
+        inputFilterContainerStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
+        inputFilterStyle={{ fontFamily: "Mohave-Medium" }}
+        optionsLabelStyle={{
+          fontFamily: "Mohave-Medium",
+        }}
+        optionContainerStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
+        multiOptionContainerStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
+        multiOptionsLabelStyle={{ fontFamily: "Mohave-Medium" }}
+        multiListEmptyLabelStyle={{ fontFamily: "Mohave-Medium" }}
+        listEmptyLabelStyle={{ fontFamily: "Mohave-Medium" }}
+        selectedItemStyle={{
+          fontFamily: "Mohave-Medium",
+        }}
+      />
+      <View
+        style={{
+          ...politicalButtons.container,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            ...politicalOptionBox.container,
+            backgroundColor:
+              politicalInclination == "Left" ? "#FFCE54" : "white",
+          }}
+          onPress={() => {
+            setPoliticalInclination(PoliticalInclination.LEFT);
+          }}
+        >
+          <Text
+            style={{
+              ...politicalText.container,
+              color: "#48CFAD",
+            }}
+          >
+            Left
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            ...politicalOptionBox.container,
+            backgroundColor:
+              politicalInclination == "Center_left" ? "#FFCE54" : "white",
+          }}
+          onPress={() => {
+            setPoliticalInclination(PoliticalInclination.CENTER_LEFT);
+          }}
+        >
+          <Text style={{ ...politicalText.container, color: "#979494" }}>
+            Center-Left
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            ...politicalOptionBox.container,
+            backgroundColor:
+              politicalInclination == "Center_right" ? "#48CFAD" : "white",
+          }}
+          onPress={() => {
+            setPoliticalInclination(PoliticalInclination.CENTER_RIGHT);
+          }}
+        >
+          <Text style={{ ...politicalText.container, color: "#979494" }}>
+            Center-Right
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            ...politicalOptionBox.container,
+            backgroundColor:
+              politicalInclination == "Right" ? "#48CFAD" : "white",
+          }}
+          onPress={() => {
+            setPoliticalInclination(PoliticalInclination.RIGHT);
+          }}
+        >
+          <Text style={{ ...politicalText.container, color: "#FFCE54" }}>
+            Right
+          </Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={{ ...continueButton.container, width: 100 }}>
-        <Text style={buttonText.container}>Continue</Text>
+        <Text style={buttonText.container}>Register</Text>
       </TouchableOpacity>
     </View>
   );
