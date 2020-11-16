@@ -61,7 +61,13 @@ const Registration = (props) => {
         }}
       >
         <View style={inputBox.container}>
-          <TextInput style={inputText.container} value={username} />
+          <TextInput
+            style={inputText.container}
+            value={username}
+            onChangeText={(text) => {
+              setUsername(text);
+            }}
+          />
         </View>
         <View
           style={{
@@ -98,7 +104,7 @@ const Registration = (props) => {
           if (equalPass) {
             props.navigation.navigate("Registration2", {
               username,
-              password,
+              password: password.value,
             });
           }
         }}
