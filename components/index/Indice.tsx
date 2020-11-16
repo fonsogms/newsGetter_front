@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { url } from "../../globalVariables";
+import { loginButton, createAccountText, links } from "./styles";
+
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import {
+  buttonText,
+  inputBox,
   inputsView,
-  loginButton,
+  inputText,
   main,
   title,
-  inputBox,
-  buttonText,
-  createAccountText,
-  links,
-} from "./styles";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import { inputText } from "../globalStyles";
+} from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Indice = (props) => {
   if (props.token) {
@@ -52,7 +51,7 @@ const Indice = (props) => {
   return (
     <View style={main.container}>
       <Text style={title.container}>
-        Welcome to Newsgetter, the news portal where users sees their own data
+        Welcome to Newsgetter, the news portal where users see their own data
       </Text>
       <View style={inputsView.container}>
         <View style={inputBox.container}>
