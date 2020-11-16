@@ -18,10 +18,11 @@ export default function App() {
           url + "/api/auth/loggedin",
           { token: saved_token }
         );
-        console.log(data, "the data");
+        console.log(data.token, "the data");
         setToken(data.token);
       } catch (err) {
         console.log(err);
+        setToken("");
       }
     }
     getToken();

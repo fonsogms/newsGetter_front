@@ -3,17 +3,17 @@ import { Image, Text, View } from "react-native";
 import axios, { AxiosResponse } from "axios";
 import { url } from "../../globalVariables";
 import {
-  inputStyle,
   inputsView,
   loginButton,
   main,
   title,
-  usernameView,
+  inputBox,
   buttonText,
   createAccountText,
   links,
 } from "./styles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { inputText } from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Indice = (props) => {
   if (props.token) {
@@ -55,18 +55,18 @@ const Indice = (props) => {
         Welcome to Newsgetter, the news portal where users sees their own data
       </Text>
       <View style={inputsView.container}>
-        <View style={usernameView.container}>
+        <View style={inputBox.container}>
           <TextInput
-            style={inputStyle.container}
+            style={inputText.container}
             onChangeText={(text) => {
               setUsername(text);
             }}
             value={username}
           />
         </View>
-        <View style={usernameView.container}>
+        <View style={inputBox.container}>
           <TextInput
-            style={inputStyle.container}
+            style={inputText.container}
             secureTextEntry={true}
             onChangeText={(text) => {
               setPassword(text);
@@ -76,8 +76,13 @@ const Indice = (props) => {
         </View>
       </View>
       <View style={links.container}>
-        <TouchableOpacity>
-          <Text style={createAccountText.container}>Create accounts</Text>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("working?");
+            props.navigation.navigate("Registration");
+          }}
+        >
+          <Text style={createAccountText.container}>Create account</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={loginButton.container}

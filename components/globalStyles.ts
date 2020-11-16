@@ -1,5 +1,12 @@
 import { StyleSheet } from "react-native";
 
+export const inputsView = StyleSheet.create({
+  container: {
+    width: "80%",
+    height: 100,
+    justifyContent: "space-between",
+  },
+});
 export const main = StyleSheet.create({
   container: {
     flex: 1,
@@ -17,13 +24,6 @@ export const title = StyleSheet.create({
     fontFamily: "Mohave-Medium",
   },
 });
-export const inputsView = StyleSheet.create({
-  container: {
-    width: "80%",
-    height: 100,
-    justifyContent: "space-between",
-  },
-});
 export const inputBox = StyleSheet.create({
   container: {
     paddingLeft: 10,
@@ -34,7 +34,7 @@ export const inputBox = StyleSheet.create({
     borderColor: "#E5E5E5",
   },
 });
-export const inputStyle = StyleSheet.create({
+export const inputText = StyleSheet.create({
   container: {
     fontFamily: "Mohave-Medium",
     height: 40,
@@ -42,40 +42,11 @@ export const inputStyle = StyleSheet.create({
     fontSize: 18,
   },
 });
-
-export const loginButton = StyleSheet.create({
-  container: {
-    backgroundColor: "#48CFAD",
-    width: 68,
-    height: 30,
-    borderRadius: 2,
-    justifyContent: "center",
-  },
-});
-
 export const buttonText = StyleSheet.create({
   container: {
     fontFamily: "Mohave-Medium",
     color: "#FFCE54",
     fontSize: 24,
     textAlign: "center",
-  },
-});
-
-export const createAccountText = StyleSheet.create({
-  container: {
-    fontSize: 24,
-    textAlign: "center",
-    fontFamily: "Mohave-Medium",
-    color: "#0066FF",
-    textDecorationLine: "underline",
-  },
-});
-
-export const links = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    height: 120,
   },
 });
