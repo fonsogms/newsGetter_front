@@ -1,1 +1,2 @@
-export const url = "http://192.168.1.78:4000";
+export const url = "http://192.168.178.59:4000";
+//192.168.43.235 ip casa

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import axios from "axios";
 import { url } from "../../globalVariables";
@@ -15,9 +15,13 @@ import {
 } from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Indice = (props) => {
-  if (props.token) {
-    props.navigation.navigate("NewsFeed");
-  }
+  useEffect(() => {
+    console.log("happening???");
+    if (props.token) {
+      props.navigation.navigate("NewsFeed");
+    }
+  });
+
   const [username, setUsername] = useState<string>("username");
   const [password, setPassword] = useState<string>("password");
 
@@ -51,7 +55,7 @@ const Indice = (props) => {
   return (
     <View style={main.container}>
       <Text style={title.container}>
-        Welcome to Newsgetter, the news portal where users see their own data
+        Welcome to Newsgetter, the news portal where users see their own datas
       </Text>
       <View style={inputsView.container}>
         <View style={inputBox.container}>

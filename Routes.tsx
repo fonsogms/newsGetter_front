@@ -10,6 +10,7 @@ import NewsList from "./components/newsFeed/NewsList";
 import { navigationRef } from "./RouteNavigation";
 import Registration from "./components/registration/Registration";
 import Registration2 from "./components/registration/Registration2";
+import ArticleWeb from "./components/newsFeed/ArticleWeb";
 const Routes = (props) => {
   const Stack = createStackNavigator();
   let [fontsLoaded] = useFonts({
@@ -38,7 +39,13 @@ const Routes = (props) => {
           options={{ ...navBarStyles, title: "Newsfeed" }}
           name="NewsFeed"
         >
-          {(routeProps) => <NewsList {...routeProps}></NewsList>}
+          {(routeProps) => (
+            <NewsList
+              {...routeProps}
+              token={props.token}
+              setToken={props.setToken}
+            ></NewsList>
+          )}
         </Stack.Screen>
         <Stack.Screen
           options={{ ...navBarStyles, title: "Registration" }}
@@ -52,6 +59,12 @@ const Routes = (props) => {
         >
           {(routeProps) => <Registration2 {...routeProps}></Registration2>}
         </Stack.Screen>
+        <Stack.Screen
+          options={{ ...navBarStyles, title: "" }}
+          name="ArticleWeb"
+        >
+          {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -61,7 +74,12 @@ export default Routes;
 
 const navBarStyles = {
   headerTitle: () => <Logo></Logo>,
-  title: "home",
+  title: "Home",
+  headerBackTitleStyle: {
+    color: "white",
+    fontFamily: "Mohave-Medium",
+    fontSize: 20,
+  },
   headerTitleAlign: "center",
   headerStyle: {
     backgroundColor: "#48CFAD",

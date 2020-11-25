@@ -7,7 +7,7 @@ import { url } from "../../globalVariables";
 import axios from "axios";
 import PoliticalComponent from "./PoliticalComponent";
 import SelectCountry from "./SelectCountry";
-const Registration2 = ({ route, navigatio }) => {
+const Registration2 = ({ route, navigation }) => {
   enum PoliticalInclination {
     LEFT = "Left",
     RIGHT = "Right",
