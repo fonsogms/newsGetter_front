@@ -11,6 +11,7 @@ import { navigationRef } from "./RouteNavigation";
 import Registration from "./components/registration/Registration";
 import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
+import Header from "./components/Header";
 const Routes = (props) => {
   const Stack = createStackNavigator();
   let [fontsLoaded] = useFonts({
@@ -24,9 +25,12 @@ const Routes = (props) => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        <Stack.Screen name="Home" options={navBarStyles}>
+        <Stack.Screen
+          name="Home"
+          options={navBarStyles(props.token, props.setToken)}
+        >
           {(routeProps) => (
             <Index
               {...routeProps}
@@ -36,7 +40,10 @@ const Routes = (props) => {
           )}
         </Stack.Screen>
         <Stack.Screen
-          options={{ ...navBarStyles, title: "Newsfeed" }}
+          options={{
+            ...navBarStyles(props.token, props.setToken),
+            title: "Newsfeed",
+          }}
           name="NewsFeed"
         >
           {(routeProps) => (
@@ -48,19 +55,30 @@ const Routes = (props) => {
           )}
         </Stack.Screen>
         <Stack.Screen
-          options={{ ...navBarStyles, title: "Registration" }}
+          options={{
+            ...navBarStyles(props.token, props.setToken),
+            title: "Registration",
+          }}
           name="Registration"
         >
           {(routeProps) => <Registration {...routeProps}></Registration>}
         </Stack.Screen>
         <Stack.Screen
-          options={{ ...navBarStyles, title: "Registraiton2" }}
+          options={{
+            ...navBarStyles(props.token, props.setToken),
+            title: "Registration2",
+          }}
           name="Registration2"
         >
-          {(routeProps) => <Registration2 {...routeProps}></Registration2>}
+          {(routeProps) => (
+            <Registration2
+              {...routeProps}
+              setToken={props.setToken}
+            ></Registration2>
+          )}
         </Stack.Screen>
         <Stack.Screen
-          options={{ ...navBarStyles, title: "" }}
+          options={{ ...navBarStyles(props.token, props.setToken), title: "" }}
           name="ArticleWeb"
         >
           {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
@@ -72,25 +90,36 @@ const Routes = (props) => {
 
 export default Routes;
 
-const navBarStyles = {
-  headerTitle: () => <Logo></Logo>,
-  title: "Home",
-  headerBackTitleStyle: {
-    color: "white",
-    fontFamily: "Mohave-Medium",
-    fontSize: 20,
-  },
-  headerTitleAlign: "center",
-  headerStyle: {
-    backgroundColor: "#48CFAD",
-    height: 110,
-    shadowOffset: {
-      width: 0,
-      height: 2,
+const navBarStyles = (token, setToken) => {
+  return {
+    headerTitle: () => <Logo></Logo>,
+    title: "Home",
+    headerBackTitleStyle: {
+      color: "white",
+      fontFamily: "Mohave-Medium",
+      fontSize: 20,
     },
-    shadowColor: "#000",
-    shadowOpacity: 0.5,
-    shadowRadius: 3.84,
-    elevation: 100,
-  },
+
+    headerRight: () => {
+      if (token) {
+        console.log("header rght?");
+        return <Header token={token} setToken={setToken}></Header>;
+      }
+      return null;
+    },
+
+    headerTitleAlign: "center",
+    headerStyle: {
+      backgroundColor: "#48CFAD",
+      height: 110,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowColor: "#000",
+      shadowOpacity: 0.5,
+      shadowRadius: 3.84,
+      elevation: 100,
+    },
+  };
 };

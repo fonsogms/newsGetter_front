@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { url } from "../../globalVariables";
 import { loginButton, createAccountText, links } from "./styles";
 
@@ -15,6 +15,7 @@ import {
 } from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Indice = (props) => {
+  const [errors, setErrors] = useState<string[]>([]);
   useEffect(() => {
     console.log("happening???");
     if (props.token) {
@@ -26,6 +27,7 @@ const Indice = (props) => {
   const [password, setPassword] = useState<string>("password");
 
   const onSubmit = async (): Promise<void> => {
+    console.log(username, password);
     try {
       const { data } = await axios.post<{ token: string }>(
         url + "/api/auth/signin",
@@ -34,14 +36,22 @@ const Indice = (props) => {
           password,
         }
       );
-
+      console.log(data);
       await AsyncStorage.setItem("token", data.token);
       props.setToken(data.token);
       props.navigation.navigate("NewsFeed", {
         token: props.token,
       });
+      setErrors([]);
     } catch (err) {
       console.log(err);
+      if (err.response.data.message) {
+        console.log(typeof err.response.data.message);
+
+        if (typeof err.response.data.message == "string")
+          setErrors([err.response.data.message]);
+        else setErrors([...err.response.data.message]);
+      }
     }
   };
   /*  axios
@@ -101,6 +111,21 @@ const Indice = (props) => {
         style={{ height: 100, resizeMode: "contain" }}
         source={require("../../assets/logo.png")}
       ></Image>
+      {errors &&
+        errors.map((elem) => {
+          return (
+            <Text
+              style={{
+                ...title.container,
+                color: "red",
+                fontSize: 20,
+                margin: 5,
+              }}
+            >
+              {elem[0].toLocaleUpperCase() + elem.slice(1)}
+            </Text>
+          );
+        })}
     </View>
   );
 };

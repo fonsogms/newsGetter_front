@@ -7,7 +7,7 @@ import { url } from "../../globalVariables";
 import axios from "axios";
 import PoliticalComponent from "./PoliticalComponent";
 import SelectCountry from "./SelectCountry";
-const Registration2 = ({ route, navigation }) => {
+const Registration2 = ({ route, navigation, setToken }) => {
   enum PoliticalInclination {
     LEFT = "Left",
     RIGHT = "Right",
@@ -25,6 +25,7 @@ const Registration2 = ({ route, navigation }) => {
     setPoliticalInclination,
   ] = useState<PoliticalInclination | null>(null);
   const register = async () => {
+    console.log("updated");
     try {
       console.log({
         username: route.params.username,
@@ -32,16 +33,26 @@ const Registration2 = ({ route, navigation }) => {
         politicalInclination: politicalInclination,
         country: selectedLocations.id,
       });
-      const { data } = await axios.post(url + "/api/auth/signup", {
-        username: route.params.username,
-        password: route.params.password,
-        politicalInclination: politicalInclination,
-        country: selectedLocations.id,
-      });
+      const { data } = await axios.post<{ token: string }>(
+        url + "/api/auth/signup",
+        {
+          username: route.params.username,
+          password: route.params.password,
+          politicalInclination: politicalInclination,
+          country: selectedLocations.id,
+        }
+      );
       console.log(data);
+      setToken(data.token);
+      setErrors([]);
+
+      navigation.navigate("Newsfeed", {});
     } catch (err) {
-      console.log(err.response.data.message);
-      setErrors([...err.response.data.message]);
+      console.log(typeof err.response.data.message);
+
+      if (typeof err.response.data.message == "string")
+        setErrors([err.response.data.message]);
+      else setErrors([...err.response.data.message]);
     }
   };
   return (

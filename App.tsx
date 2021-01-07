@@ -10,18 +10,19 @@ export default function App() {
   useEffect(() => {
     async function getToken() {
       try {
-        console.log("happening?");
+        console.log(" get token happening?");
 
         const saved_token = await AsyncStorage.getItem("token");
-        console.log(saved_token);
+        console.log(saved_token, "token in the phone");
         const { data } = await axios.post<{ token: string }>(
           url + "/api/auth/loggedin",
           { token: saved_token }
         );
-        console.log(data.token, "the data");
+        console.log(data.token, "the refreshed token");
+
         setToken(data.token);
       } catch (err) {
-        console.log(err);
+        console.log(err.response.data.message);
         setToken("");
       }
     }
@@ -38,5 +39,6 @@ export default function App() {
       </View>
     );
   }
+
   return <Routes token={token} setToken={setToken}></Routes>;
 }
