@@ -18,7 +18,6 @@ const Registration2 = ({ route, navigation, setToken }) => {
     id: "",
     item: "",
   });
-  console.log(selectedLocations);
   const [errors, setErrors] = useState<string[]>([]);
   const [
     politicalInclination,
@@ -42,14 +41,11 @@ const Registration2 = ({ route, navigation, setToken }) => {
           country: selectedLocations.id,
         }
       );
-      console.log(data);
       setToken(data.token);
-      setErrors([]);
-
       navigation.navigate("Newsfeed", {});
-    } catch (err) {
-      console.log(typeof err.response.data.message);
 
+      setErrors([]);
+    } catch (err) {
       if (typeof err.response.data.message == "string")
         setErrors([err.response.data.message]);
       else setErrors([...err.response.data.message]);

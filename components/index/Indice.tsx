@@ -16,12 +16,6 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Indice = (props) => {
   const [errors, setErrors] = useState<string[]>([]);
-  useEffect(() => {
-    console.log("happening???");
-    if (props.token) {
-      props.navigation.navigate("NewsFeed");
-    }
-  });
 
   const [username, setUsername] = useState<string>("username");
   const [password, setPassword] = useState<string>("password");
@@ -36,7 +30,6 @@ const Indice = (props) => {
           password,
         }
       );
-      console.log(data);
       await AsyncStorage.setItem("token", data.token);
       props.setToken(data.token);
       props.navigation.navigate("NewsFeed", {

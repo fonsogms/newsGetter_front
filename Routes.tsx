@@ -27,62 +27,72 @@ const Routes = (props) => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          options={navBarStyles(props.token, props.setToken)}
-        >
-          {(routeProps) => (
-            <Index
-              {...routeProps}
-              token={props.token}
-              setToken={props.setToken}
-            />
-          )}
-        </Stack.Screen>
-        <Stack.Screen
-          options={{
-            ...navBarStyles(props.token, props.setToken),
-            title: "Newsfeed",
-          }}
-          name="NewsFeed"
-        >
-          {(routeProps) => (
-            <NewsList
-              {...routeProps}
-              token={props.token}
-              setToken={props.setToken}
-            ></NewsList>
-          )}
-        </Stack.Screen>
-        <Stack.Screen
-          options={{
-            ...navBarStyles(props.token, props.setToken),
-            title: "Registration",
-          }}
-          name="Registration"
-        >
-          {(routeProps) => <Registration {...routeProps}></Registration>}
-        </Stack.Screen>
-        <Stack.Screen
-          options={{
-            ...navBarStyles(props.token, props.setToken),
-            title: "Registration2",
-          }}
-          name="Registration2"
-        >
-          {(routeProps) => (
-            <Registration2
-              {...routeProps}
-              setToken={props.setToken}
-            ></Registration2>
-          )}
-        </Stack.Screen>
-        <Stack.Screen
-          options={{ ...navBarStyles(props.token, props.setToken), title: "" }}
-          name="ArticleWeb"
-        >
-          {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
-        </Stack.Screen>
+        {props.token ? (
+          <>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "Newsfeed",
+              }}
+              name="NewsFeed"
+            >
+              {(routeProps) => (
+                <NewsList
+                  {...routeProps}
+                  token={props.token}
+                  setToken={props.setToken}
+                ></NewsList>
+              )}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "",
+              }}
+              name="ArticleWeb"
+            >
+              {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
+            </Stack.Screen>
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Home"
+              options={navBarStyles(props.token, props.setToken)}
+            >
+              {(routeProps) => (
+                <Index
+                  {...routeProps}
+                  token={props.token}
+                  setToken={props.setToken}
+                />
+              )}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "Registration",
+              }}
+              name="Registration"
+            >
+              {(routeProps) => <Registration {...routeProps}></Registration>}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "Registration2",
+              }}
+              name="Registration2"
+            >
+              {(routeProps) => (
+                <Registration2
+                  {...routeProps}
+                  setToken={props.setToken}
+                ></Registration2>
+              )}
+            </Stack.Screen>
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -102,7 +112,6 @@ const navBarStyles = (token, setToken) => {
 
     headerRight: () => {
       if (token) {
-        console.log("header rght?");
         return <Header token={token} setToken={setToken}></Header>;
       }
       return null;
