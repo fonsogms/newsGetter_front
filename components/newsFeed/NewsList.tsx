@@ -7,8 +7,6 @@ import Article from "./Article";
 import Header from "../Header";
 import { ScrollView } from "react-native-gesture-handler";
 const NewsList = (props) => {
-  console.log(props.navigation);
-
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   useEffect(() => {
     getArticles();
@@ -37,6 +35,9 @@ const NewsList = (props) => {
             url={elem.url}
             source={elem.source.name}
             navigation={props.navigation}
+            index={elem.id}
+            leftVotes={elem.leftVotes}
+            rightVotes={elem.rightVotes}
           ></Article>
         );
       })}

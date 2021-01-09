@@ -23,5 +23,5 @@ export const textViewStyle = StyleSheet.create({
   },
 });
 export const articleMainStyle = StyleSheet.create({
-  container: { backgroundColor: "white", marginBottom: 30 },
+  container: { backgroundColor: "white", marginBottom: 40 },
 });

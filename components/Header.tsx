@@ -10,6 +10,7 @@ import {
   Item,
   HiddenItem,
   OverflowMenu,
+  OverflowMenuProvider,
 } from "react-navigation-header-buttons";
 const IoniconsHeaderButton = (props) => (
   // the `props` here come from <Item ... />
@@ -51,8 +52,11 @@ const Header = (props) => {
           style={{ marginHorizontal: 10 }}
           OverflowIcon={<Ionicons name="ios-reorder" size={70} color="white" />}
         >
+          <HiddenItem
+            title="Home"
+            onPress={() => RootNavigation.navigate("NewsFeed", {})}
+          />
           <HiddenItem title="logout" onPress={() => logout()} />
-          <ReusableHiddenItem onPress={() => alert("hidden2")} />
         </OverflowMenu>
       </HeaderButtons>
     </View>

@@ -7,12 +7,22 @@ import {
   textViewStyle,
   articleMainStyle,
 } from "./styles";
-const Articles = ({ title, description, image, url, source, navigation }) => {
+import VotingSection from "./VotingSection";
+const Articles = ({
+  title,
+  description,
+  image,
+  url,
+  source,
+  navigation,
+  index,
+  leftVotes,
+  rightVotes,
+}) => {
   return (
     <View style={articleMainStyle.container}>
       <TouchableOpacity
         onPress={() => {
-          console.log(navigation, "this is navigation");
           navigation.navigate("ArticleWeb", { url: url });
         }}
       >
@@ -26,6 +36,11 @@ const Articles = ({ title, description, image, url, source, navigation }) => {
           <Text style={descriptionStyle.container}>Fuente: {source}</Text>
         </View>
       </TouchableOpacity>
+      <VotingSection
+        index={index}
+        leftVotes={leftVotes}
+        rightVotes={rightVotes}
+      ></VotingSection>
     </View>
   );
 };
