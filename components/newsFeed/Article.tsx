@@ -1,6 +1,9 @@
+import Axios, { AxiosError } from "axios";
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import {url} from "../../globalVariables"
+import axios from "axios"
 import {
   titleStyle,
   descriptionStyle,
@@ -12,7 +15,7 @@ const Articles = ({
   title,
   description,
   image,
-  url,
+  articleUrl,
   source,
   navigation,
   index,
@@ -23,8 +26,13 @@ const Articles = ({
   return (
     <View style={articleMainStyle.container}>
       <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("ArticleWeb", { url: url });
+        onPress={async() => {
+          await axios.post(url+"/api/news/view",{articleId:index},{ headers: { Authorization: `Bearer ${token}` } }).then(res=>{
+            console.log("this is the response",res.data)
+          }).catch((err:AxiosError)=>{
+            console.log(err.response.data)
+          })
+          navigation.navigate("ArticleWeb", { url: articleUrl })
         }}
       >
         <Image

@@ -45,7 +45,7 @@ const NewsList = (props) => {
             title={article.title}
             description={article.description}
             image={article.image}
-            url={article.url}
+            articleUrl={article.url}
             source={article.source.name}
             navigation={props.navigation}
             index={article.id}
