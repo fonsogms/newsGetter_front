@@ -18,6 +18,7 @@ const Articles = ({
   index,
   leftVotes,
   rightVotes,
+  voteValue,token
 }) => {
   return (
     <View style={articleMainStyle.container}>
@@ -40,6 +41,8 @@ const Articles = ({
         index={index}
         leftVotes={leftVotes}
         rightVotes={rightVotes}
+        voteValue={voteValue}
+        token={token}
       ></VotingSection>
     </View>
   );

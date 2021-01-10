@@ -1,18 +1,29 @@
 import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
-
-const VotingSection = ({ index, rightVotes, leftVotes }) => {
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import axios,{AxiosError} from "axios"
+import { url } from "../../globalVariables";
+const VotingSection = ({ index, rightVotes, leftVotes,voteValue ,token}) => {
   if (!rightVotes && !leftVotes) {
     rightVotes = 1;
     leftVotes = 1;
   }
-  const [leftClicked, setLeftClicked] = useState<boolean>(false);
-  const [rightClicked, setRightClicked] = useState<boolean>(false);
-
+  console.log(voteValue)
+  if(!voteValue)voteValue=0;
+  const [curVoteVal,setCurVoteVal]=useState<number>(voteValue)
   const totalVotes = rightVotes + leftVotes;
   const rightPercentage: number = (rightVotes * 100) / totalVotes;
   const leftPercentage: number = (leftVotes * 100) / totalVotes;
+ const vote=async(vote:number)=>{
+   const newVote=vote*-1
+   setCurVoteVal(newVote)
+  axios.post(url+"/api/news/vote",{articleId:index,value:newVote}, { headers: { Authorization: `Bearer ${token}` } }).then(res=>{
+console.log(res.data)
+  }).catch((err:AxiosError)=>{
+console.log(err.response.data.message)
+  })
 
+ }
   return (
     <View style={{ alignItems: "center" }}>
       <View
@@ -25,26 +36,35 @@ const VotingSection = ({ index, rightVotes, leftVotes }) => {
       >
         <TouchableOpacity
           onPress={() => {
-            setLeftClicked(!leftClicked);
-            setRightClicked(false);
+            if(curVoteVal==-1){
+              vote(0)
+            }
+            else{
+              vote(1)
+
+
+            }
           }}
         >
           <Image
             style={{ height: 30, width: 30, margin: 10 }}
-            blurRadius={leftClicked ? 4 : 0}
+            blurRadius={curVoteVal==-1  ? 6 : 0}
             source={require("../../assets/voteLeft.png")}
           ></Image>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setLeftClicked(false);
+            if(curVoteVal==1){
+              vote(0)}
+            else{
+              vote(-1)
 
-            setRightClicked(!rightClicked);
+            }
           }}
         >
           <Image
             style={{ height: 30, width: 30, margin: 10 }}
-            blurRadius={rightClicked ? 3 : 0}
+            blurRadius={curVoteVal==1 ? 6 : 0}
             source={require("../../assets/voteRight.png")}
           ></Image>
         </TouchableOpacity>

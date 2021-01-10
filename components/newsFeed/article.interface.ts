@@ -29,3 +29,8 @@ export interface DBArticleInterface {
   category: Category;
   source: DBPublisherInterace;
 }
+export interface VoteInterface{
+  value:number;
+  articleid:number;
+  userid:number;
+}
