@@ -2,8 +2,8 @@ import Axios, { AxiosError } from "axios";
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {url} from "../../globalVariables"
-import axios from "axios"
+import { url } from "../../globalVariables";
+import axios from "axios";
 import {
   titleStyle,
   descriptionStyle,
@@ -21,18 +21,26 @@ const Articles = ({
   index,
   leftVotes,
   rightVotes,
-  voteValue,token
+  voteValue,
+  token,
 }) => {
   return (
     <View style={articleMainStyle.container}>
       <TouchableOpacity
-        onPress={async() => {
-          await axios.post(url+"/api/news/view",{articleId:index},{ headers: { Authorization: `Bearer ${token}` } }).then(res=>{
-            console.log("this is the response",res.data)
-          }).catch((err:AxiosError)=>{
-            console.log(err.response.data)
-          })
-          navigation.navigate("ArticleWeb", { url: articleUrl })
+        onPress={async () => {
+          await axios
+            .post(
+              url + "/api/news/view",
+              { articleId: index },
+              { headers: { Authorization: `Bearer ${token}` } }
+            )
+            .then((res) => {
+              console.log("this is the response", res.data);
+            })
+            .catch((err: AxiosError) => {
+              console.log(err.response.data);
+            });
+          navigation.navigate("ArticleWeb", { url: articleUrl });
         }}
       >
         <Image
@@ -42,7 +50,7 @@ const Articles = ({
         <View style={textViewStyle.container}>
           <Text style={titleStyle.container}>{title}</Text>
           <Text style={descriptionStyle.container}>{description}</Text>
-          <Text style={descriptionStyle.container}>Fuente: {source}</Text>
+          <Text style={descriptionStyle.container}>Fuente: {source.name}</Text>
         </View>
       </TouchableOpacity>
       <VotingSection
@@ -51,6 +59,7 @@ const Articles = ({
         rightVotes={rightVotes}
         voteValue={voteValue}
         token={token}
+        publisher={source}
       ></VotingSection>
     </View>
   );

@@ -13,16 +13,18 @@ const NewsList = (props) => {
   useEffect(() => {
     getArticles();
   }, []);
- 
+
   async function getArticles() {
     try {
       //console.log("living la vida loca", props.token);
-      const { data } = await axios.get<{articles:DBArticleInterface[],votes:VoteInterface[]}>(
-        url + "/api/news?category=GENERAL",
-        { headers: { Authorization: `Bearer ${props.token}` } }
-      );
-      const {articles,votes}=data
-      setVotes(votes)
+      const { data } = await axios.get<{
+        articles: DBArticleInterface[];
+        votes: VoteInterface[];
+      }>(url + "/api/news?category=GENERAL", {
+        headers: { Authorization: `Bearer ${props.token}` },
+      });
+      const { articles, votes } = data;
+      setVotes(votes);
       setArticles(articles);
     } catch (err) {
       console.log(err.response.data.message);
@@ -31,14 +33,25 @@ const NewsList = (props) => {
   return (
     <ScrollView>
       {articles.map((article) => {
-      let currentVote=0
-     const articleVote= votes.find(vote=>{
-
-      return vote.articleid==article.id
-     })
-   if(articleVote){
-     currentVote=articleVote.value
-   }
+        let currentVote = 0;
+        // console.log(article);
+        const countVotes = (direction: number) => {
+          return article.votes.reduce((acum, cur) => {
+            if (cur.value === direction) {
+              return acum + 1;
+            } else {
+              return acum;
+            }
+          }, 0);
+        };
+        const leftVotes = countVotes(-1);
+        const rightVotes = countVotes(1);
+        const articleVote = votes.find((vote) => {
+          return vote.articleId == article.id;
+        });
+        if (articleVote) {
+          currentVote = articleVote.value;
+        }
         return (
           <Article
             key={article.id}
@@ -46,11 +59,11 @@ const NewsList = (props) => {
             description={article.description}
             image={article.image}
             articleUrl={article.url}
-            source={article.source.name}
+            source={article.source}
             navigation={props.navigation}
             index={article.id}
-            leftVotes={article.leftVotes}
-            rightVotes={article.rightVotes}
+            leftVotes={leftVotes}
+            rightVotes={rightVotes}
             voteValue={currentVote}
             token={props.token}
           ></Article>

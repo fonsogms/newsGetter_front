@@ -28,9 +28,10 @@ export interface DBArticleInterface {
   publishDate: string;
   category: Category;
   source: DBPublisherInterace;
+  votes: VoteInterface[];
 }
-export interface VoteInterface{
-  value:number;
-  articleid:number;
-  userid:number;
+export interface VoteInterface {
+  id?: number;
+  value: number;
+  articleId?: number;
 }
