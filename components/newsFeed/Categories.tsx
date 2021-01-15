@@ -3,7 +3,12 @@ import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Category } from "./article.interface";
 import { CategoriesBar, CategoriesText } from "./styles";
-const Categories = ({ selectedCategory, setSearchQuery, searchQuery }) => {
+const Categories = ({
+  selectedCategory,
+  setSearchQuery,
+  searchQuery,
+  flatListContainer,
+}) => {
   return (
     <View style={CategoriesBar.container}>
       {Object.keys(Category).map((category) => {

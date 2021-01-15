@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { Text, View } from "react-native";
 import { url } from "../../globalVariables";
 import {
@@ -12,6 +12,7 @@ import Header from "../Header";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Categories from "./Categories";
 const NewsList = (props) => {
+  const flatListContainer = useRef(null);
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
   const [searchQuery, setSearchQuery] = useState<{
@@ -38,59 +39,61 @@ const NewsList = (props) => {
       console.log(err.response.data.message);
     }
   }
-
+  const item = ({ item: article }: { item: DBArticleInterface }) => {
+    let currentVote = 0;
+    const countVotes = (direction: number) => {
+      return article.votes.reduce((acum, cur) => {
+        if (cur.value === direction) {
+          return acum + 1;
+        } else {
+          return acum;
+        }
+      }, 0);
+    };
+    const leftVotes = countVotes(-1);
+    const rightVotes = countVotes(1);
+    const articleVote = votes.find((vote) => {
+      return vote.articleId == article.id;
+    });
+    if (articleVote) {
+      currentVote = articleVote.value;
+    }
+    return (
+      <Article
+        key={article.id}
+        title={article.title}
+        description={article.description}
+        image={article.image}
+        articleUrl={article.url}
+        source={article.source}
+        navigation={props.navigation}
+        index={article.id}
+        leftVotes={leftVotes}
+        rightVotes={rightVotes}
+        voteValue={currentVote}
+        token={props.token}
+      ></Article>
+    );
+  };
   return (
     <View>
       <Categories
         selectedCategory={searchQuery.selectedCategory}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        flatListContainer={flatListContainer}
       ></Categories>
-
-      <ScrollView
-        onScrollEndDrag={() => {
-          console.log("dragging");
-          //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
+      <FlatList
+        extraData={searchQuery}
+        ref={flatListContainer}
+        data={articles}
+        renderItem={item}
+        onEndReached={() => {
+          console.log("the end");
         }}
-      >
-        {articles.map((article) => {
-          let currentVote = 0;
-          // console.log(article);
-          const countVotes = (direction: number) => {
-            return article.votes.reduce((acum, cur) => {
-              if (cur.value === direction) {
-                return acum + 1;
-              } else {
-                return acum;
-              }
-            }, 0);
-          };
-          const leftVotes = countVotes(-1);
-          const rightVotes = countVotes(1);
-          const articleVote = votes.find((vote) => {
-            return vote.articleId == article.id;
-          });
-          if (articleVote) {
-            currentVote = articleVote.value;
-          }
-          return (
-            <Article
-              key={article.id}
-              title={article.title}
-              description={article.description}
-              image={article.image}
-              articleUrl={article.url}
-              source={article.source}
-              navigation={props.navigation}
-              index={article.id}
-              leftVotes={leftVotes}
-              rightVotes={rightVotes}
-              voteValue={currentVote}
-              token={props.token}
-            ></Article>
-          );
-        })}
-      </ScrollView>
+        onEndReachedThreshold={0.98}
+        //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
+      ></FlatList>
     </View>
   );
 };
