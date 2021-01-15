@@ -25,3 +25,35 @@ export const textViewStyle = StyleSheet.create({
 export const articleMainStyle = StyleSheet.create({
   container: { backgroundColor: "white", marginBottom: 40 },
 });
+export const CategoriesBar = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    backgroundColor: "#48CFAD",
+    height: 25,
+    justifyContent: "space-around",
+    alignItems: "center",
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 6.68,
+
+    elevation: 11,
+    width: "100%",
+    position: "absolute",
+    zIndex: 1,
+    // background color must be set
+    // backgroundColor: "#0000", // invisible color
+  },
+});
+
+export const CategoriesText = (selected: boolean) =>
+  StyleSheet.create({
+    container: {
+      fontFamily: "Mohave-Medium",
+      color: selected ? "#FFCE54" : "white",
+      fontSize: 20,
+    },
+  });

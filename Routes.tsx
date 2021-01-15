@@ -12,7 +12,9 @@ import Registration from "./components/registration/Registration";
 import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
 import Header from "./components/Header";
+
 import { OverflowMenuProvider } from "react-navigation-header-buttons";
+import { navBarStyles } from "./navbar.styles";
 const Routes = (props) => {
   const Stack = createStackNavigator();
   let [fontsLoaded] = useFonts({
@@ -33,7 +35,8 @@ const Routes = (props) => {
             <>
               <Stack.Screen
                 options={{
-                  ...navBarStyles(props.token, props.setToken),
+                  ...navBarStyles(props.token, props.setToken, true),
+
                   title: "Newsfeed",
                 }}
                 name="NewsFeed"
@@ -103,35 +106,35 @@ const Routes = (props) => {
 
 export default Routes;
 
-const navBarStyles = (token, setToken) => {
-  return {
-    headerTitle: () => <Logo></Logo>,
-    title: "Home",
-    headerBackTitleStyle: {
-      color: "white",
-      fontFamily: "Mohave-Medium",
-      fontSize: 20,
-    },
+// const navBarStyles = (token, setToken) => {
+//   return {
+//     headerTitle: () => <Logo></Logo>,
+//     title: "Home",
+//     headerBackTitleStyle: {
+//       color: "white",
+//       fontFamily: "Mohave-Medium",
+//       fontSize: 20,
+//     },
 
-    headerRight: () => {
-      if (token) {
-        return <Header token={token} setToken={setToken}></Header>;
-      }
-      return null;
-    },
+//     headerRight: () => {
+//       if (token) {
+//         return <Header token={token} setToken={setToken}></Header>;
+//       }
+//       return null;
+//     },
 
-    headerTitleAlign: "center",
-    headerStyle: {
-      backgroundColor: "#48CFAD",
-      height: 110,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowColor: "#000",
-      shadowOpacity: 0.5,
-      shadowRadius: 3.84,
-      elevation: 100,
-    },
-  };
-};
+//     headerTitleAlign: "center",
+//     headerStyle: {
+//       backgroundColor: "#48CFAD",
+//       height: 110,
+//       shadowOffset: {
+//         width: 0,
+//         height: 2,
+//       },
+//       shadowColor: "#000",
+//       shadowOpacity: 0.5,
+//       shadowRadius: 3.84,
+//       elevation: 100,
+//     },
+//   };
+// };

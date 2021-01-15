@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { Animated, View, Image, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios, { AxiosError } from "axios";
 import { url } from "../../globalVariables";
@@ -12,9 +12,18 @@ const VotingSection = ({
   token,
   publisher,
 }) => {
-  //console.log(voteValue)
-  console.log("mounting", rightVotes);
   const isInitialMount = useRef(true);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 90,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+  };
+  fadeIn();
   if (!voteValue) voteValue = 0;
   const [votes, setVotes] = useState<{ leftVotes: number; rightVotes: number }>(
     {
@@ -24,19 +33,14 @@ const VotingSection = ({
   );
   const [curVoteVal, setCurVoteVal] = useState<number>(voteValue);
   const totalVotes = votes.rightVotes + votes.leftVotes;
-  console.log(totalVotes, " this is total votes");
   let rightPercentage: number = (votes.rightVotes * 100) / totalVotes;
   let leftPercentage: number = (votes.leftVotes * 100) / totalVotes;
-  console.log(rightPercentage, leftPercentage);
   if (!votes.rightVotes && !votes.leftVotes) {
     rightPercentage = 50;
     leftPercentage = 50;
   }
-  console.log(rightPercentage, leftPercentage);
-
   useEffect(() => {
     if (isInitialMount.current) {
-      console.log("mounted");
       isInitialMount.current = false;
     } else {
       voting();
@@ -132,11 +136,14 @@ const VotingSection = ({
           Right
         </Text>
       </View>
-      <View
+      <Animated.View
         style={{
           height: 20,
           flexDirection: "row",
-          width: "90%",
+          width: fadeAnim.interpolate({
+            inputRange: [0, 100],
+            outputRange: ["0%", "100%"],
+          }),
         }}
       >
         <View
@@ -175,7 +182,7 @@ const VotingSection = ({
             {rightPercentage.toFixed(0)}%
           </Text>
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
 };

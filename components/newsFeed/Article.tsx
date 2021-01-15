@@ -24,23 +24,26 @@ const Articles = ({
   voteValue,
   token,
 }) => {
+  const goToPageView = async () => {
+    await axios
+      .post(
+        url + "/api/news/view",
+        { articleId: index, publisherId: source.id },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => {
+        console.log("this is the response", res.data);
+      })
+      .catch((err: AxiosError) => {
+        console.log(err.response.data);
+      });
+    navigation.navigate("ArticleWeb", { url: articleUrl });
+  };
   return (
     <View style={articleMainStyle.container}>
       <TouchableOpacity
-        onPress={async () => {
-          await axios
-            .post(
-              url + "/api/news/view",
-              { articleId: index },
-              { headers: { Authorization: `Bearer ${token}` } }
-            )
-            .then((res) => {
-              console.log("this is the response", res.data);
-            })
-            .catch((err: AxiosError) => {
-              console.log(err.response.data);
-            });
-          navigation.navigate("ArticleWeb", { url: articleUrl });
+        onPress={() => {
+          goToPageView();
         }}
       >
         <Image

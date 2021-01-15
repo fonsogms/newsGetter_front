@@ -1,11 +1,11 @@
 export enum Category {
-  GENERAL = "general",
-  BUSINESS = "business",
-  ENTERTAINMENT = "entertainment",
-  HEALTH = "health",
-  SCIENCE = "science",
-  SPORTS = "sports",
-  TECHNOLOGY = "technology",
+  GENERAL = "GENERAL",
+  BUSINESS = "BUSINESS",
+  ENTERTAINMENT = "ENTERTAINMENT",
+  HEALTH = "HEALTH",
+  SCIENCE = "SCIENCE",
+  SPORTS = "SPORTS",
+  TECHNOLOGY = "TECHNOLOGY",
 }
 export interface DBPublisherInterace {
   id: number;
