@@ -15,15 +15,15 @@ const NewsList = (props) => {
   const flatListContainer = useRef(null);
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
-  const [searchQuery, setSearchQuery] = useState<{
-    selectedCategory: Category;
-    limit: number;
-  }>({ selectedCategory: Category.GENERAL, limit: 0 });
-
+  const [limit, setLimit] = useState<number>(0);
   useEffect(() => {
-    getArticles(searchQuery.selectedCategory, searchQuery.limit);
-  }, [searchQuery]);
-
+    if (!props.route.params) {
+      console.log("un dia bien");
+      getArticles(Category.GENERAL, limit);
+    } else {
+      getArticles(props.route.params.selectedCategory, limit);
+    }
+  }, [props.route, limit]);
   async function getArticles(category: Category, limit: number) {
     try {
       const { data } = await axios.get<{
@@ -32,8 +32,8 @@ const NewsList = (props) => {
       }>(url + `/api/news?category=${category}&limit=${limit}`, {
         headers: { Authorization: `Bearer ${props.token}` },
       });
-      const { articles, votes } = data;
-      setArticles(articles);
+      const { articles: apiArticles, votes } = data;
+      setArticles([...articles, ...apiArticles]);
       setVotes(votes);
     } catch (err) {
       console.log(err.response.data.message);
@@ -78,20 +78,22 @@ const NewsList = (props) => {
   return (
     <View>
       <Categories
-        selectedCategory={searchQuery.selectedCategory}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        flatListContainer={flatListContainer}
+        selectedCategory={
+          props.route.params ? props.route.params.selectedCategory : "GENERAL"
+        }
+        navigation={props.navigation}
+        articles={articles}
+        setArticles={setArticles}
       ></Categories>
       <FlatList
-        extraData={searchQuery}
         ref={flatListContainer}
         data={articles}
         renderItem={item}
         onEndReached={() => {
           console.log("the end");
+          setLimit(limit + 5);
         }}
-        onEndReachedThreshold={0.98}
+        onEndReachedThreshold={0.9}
         //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
       ></FlatList>
     </View>

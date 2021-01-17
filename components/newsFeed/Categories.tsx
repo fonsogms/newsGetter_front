@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Category } from "./article.interface";
 import { CategoriesBar, CategoriesText } from "./styles";
 const Categories = ({
   selectedCategory,
-  setSearchQuery,
-  searchQuery,
-  flatListContainer,
+  setArticles,
+  articles,
+  navigation,
 }) => {
+  const [newCategory, setNewCategory] = useState("");
+  useEffect(() => {
+    //
+  }, [articles]);
   return (
     <View style={CategoriesBar.container}>
       {Object.keys(Category).map((category) => {
@@ -19,11 +23,8 @@ const Categories = ({
         return (
           <TouchableOpacity
             onPress={() => {
-              setSearchQuery({
-                ...searchQuery,
-                selectedCategory:
-                  category == "Tech" ? Category.TECHNOLOGY : category,
-              });
+              setArticles([]);
+              navigation.navigate("NewsFeed", { selectedCategory: category });
             }}
           >
             <Text key={category} style={CategoriesText(selected).container}>
