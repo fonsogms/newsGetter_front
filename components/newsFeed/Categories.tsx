@@ -3,16 +3,25 @@ import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Category } from "./article.interface";
 import { CategoriesBar, CategoriesText } from "./styles";
+import { BoxShadow } from "react-native-shadow";
+const shadowOpt = {
+  width: 100,
+  height: 100,
+  color: "#000",
+  border: 2,
+  radius: 3,
+  opacity: 0.2,
+  x: 0,
+  y: 3,
+  style: { marginVertical: 5 },
+};
+
 const Categories = ({
   selectedCategory,
   setArticles,
   articles,
   navigation,
 }) => {
-  const [newCategory, setNewCategory] = useState("");
-  useEffect(() => {
-    //
-  }, [articles]);
   return (
     <View style={CategoriesBar.container}>
       {Object.keys(Category).map((category) => {

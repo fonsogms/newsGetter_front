@@ -40,5 +40,7 @@ export default function App() {
     );
   }
 
-  return <Routes token={token} setToken={setToken}></Routes>;
+  return (
+    <Routes style={{ flex: 1 }} token={token} setToken={setToken}></Routes>
+  );
 }

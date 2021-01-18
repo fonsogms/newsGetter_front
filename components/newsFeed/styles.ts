@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
+import { isAndroid, screen } from "../../globalVariables";
 
 export const titleStyle = StyleSheet.create({
   container: {
@@ -29,7 +30,7 @@ export const CategoriesBar = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: "#48CFAD",
-    height: 25,
+    height: screen.height * 0.04,
     justifyContent: "space-around",
     alignItems: "center",
     shadowColor: "black",
@@ -39,13 +40,11 @@ export const CategoriesBar = StyleSheet.create({
     },
     shadowOpacity: 0.8,
     shadowRadius: 6.68,
-
-    elevation: 11,
+    borderBottomColor: "#FFCE54",
+    borderBottomWidth: isAndroid ? 1 : 0,
     width: "100%",
     position: "absolute",
     zIndex: 1,
-    // background color must be set
-    // backgroundColor: "#0000", // invisible color
   },
 });
 
@@ -54,6 +53,6 @@ export const CategoriesText = (selected: boolean) =>
     container: {
       fontFamily: "Mohave-Medium",
       color: selected ? "#FFCE54" : "white",
-      fontSize: 20,
+      fontSize: 18,
     },
   });

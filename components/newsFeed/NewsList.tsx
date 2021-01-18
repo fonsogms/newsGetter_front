@@ -2,6 +2,8 @@ import axios, { AxiosError } from "axios";
 import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { Text, View } from "react-native";
 import { url } from "../../globalVariables";
+import { BlurView } from "expo-blur";
+
 import {
   Category,
   DBArticleInterface,
@@ -85,6 +87,7 @@ const NewsList = (props) => {
         articles={articles}
         setArticles={setArticles}
       ></Categories>
+
       <FlatList
         ref={flatListContainer}
         data={articles}

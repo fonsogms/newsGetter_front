@@ -5,9 +5,10 @@ const Logo = () => {
   return (
     <Image
       style={{
-        height: "100%",
+        height: 100,
         width: 80,
       }}
+      resizeMode="contain"
       source={require("../assets/logo_nocolor.png")}
     ></Image>
   );

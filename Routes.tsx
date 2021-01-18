@@ -11,12 +11,12 @@ import { navigationRef } from "./RouteNavigation";
 import Registration from "./components/registration/Registration";
 import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
-import Header from "./components/Header";
 
 import { OverflowMenuProvider } from "react-navigation-header-buttons";
 import { navBarStyles } from "./navbar.styles";
 const Routes = (props) => {
   const Stack = createStackNavigator();
+
   let [fontsLoaded] = useFonts({
     "Mohave-Medium": require("./assets/fonts/Mohave-Medium.otf"),
     "Mohave-Bold": require("./assets/fonts/Mohave-Bold.otf"),

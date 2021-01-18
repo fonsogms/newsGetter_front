@@ -1,6 +1,8 @@
 import Header from "./components/Header";
 import Logo from "./components/Logo";
 import React from "react";
+import { View } from "react-native";
+import { screen } from "./globalVariables";
 export const navBarStyles = (token, setToken, noShadow?: boolean) => {
   return {
     headerTitle: () => <Logo></Logo>,
@@ -10,22 +12,21 @@ export const navBarStyles = (token, setToken, noShadow?: boolean) => {
       fontFamily: "Mohave-Medium",
       fontSize: 20,
     },
-
+    headerTitleAlign: "center",
     headerRight: () => {
       if (token) {
         return <Header token={token} setToken={setToken}></Header>;
       }
-      return null;
+      return <View></View>;
     },
 
-    headerTitleAlign: "center",
     headerStyle: noShadow ? noShadowHeader : headerStyle,
   } as const;
 };
 
 const headerStyle = {
   backgroundColor: "#48CFAD",
-  height: 110,
+  height: screen.height * 0.12,
   shadowOffset: {
     width: 0,
     height: 2,
@@ -33,7 +34,7 @@ const headerStyle = {
   shadowColor: "#000",
   shadowOpacity: 0.5,
   shadowRadius: 3.84,
-  elevation: 100,
+  elevation: 8,
 };
 const noShadowHeader = {
   backgroundColor: "#48CFAD",
