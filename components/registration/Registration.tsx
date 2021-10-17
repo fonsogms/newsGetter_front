@@ -17,7 +17,14 @@ const Registration = (props) => {
     value: string;
     hide: boolean;
   }
-  const [username, setUsername] = useState<string>("username");
+  interface Username {
+    value: string;
+    isClean: boolean;
+  }
+  const [username, setUsername] = useState<Username>({
+    value: "username",
+    isClean: false,
+  });
   const [password, setPassword] = useState<Password>({
     value: "password",
     hide: false,
@@ -66,9 +73,14 @@ const Registration = (props) => {
           <View style={inputBox.container}>
             <TextInput
               style={inputText.container}
-              value={username}
+              value={username.value}
+              onFocus={() => {
+                if (!username.isClean) {
+                  setUsername({ value: "", isClean: true });
+                }
+              }}
               onChangeText={(text) => {
-                setUsername(text);
+                if (username) setUsername({ value: text, isClean: true });
               }}
             />
           </View>
@@ -80,6 +92,11 @@ const Registration = (props) => {
             <TextInput
               style={inputText.container}
               secureTextEntry={password.hide}
+              onFocus={() => {
+                if (!password.hide) {
+                  setPassword({ value: "", hide: true });
+                }
+              }}
               value={password.value}
               onChangeText={(text) => {
                 setPassword({ value: text, hide: true });
@@ -96,6 +113,11 @@ const Registration = (props) => {
               style={inputText.container}
               secureTextEntry={password2.hide}
               value={password2.value}
+              onFocus={() => {
+                if (!password.value) {
+                  setPassword2({ value: "", hide: true });
+                }
+              }}
               onChangeText={(text) => {
                 setPassword2({ value: text, hide: true });
               }}
@@ -106,7 +128,7 @@ const Registration = (props) => {
           onPress={() => {
             if (equalPass) {
               props.navigation.navigate("Registration2", {
-                username,
+                username: username.value,
                 password: password.value,
               });
             }
