@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { screen } from "../globalVariables";
 
 export const inputsView = StyleSheet.create({
   container: {
@@ -7,9 +8,10 @@ export const inputsView = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
 export const main = StyleSheet.create({
   container: {
-    flex: 1,
+    height: screen.height * 0.88,
     backgroundColor: "#F3F3F3",
     alignItems: "center",
     justifyContent: "space-evenly",

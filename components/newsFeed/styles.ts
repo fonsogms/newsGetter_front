@@ -30,21 +30,12 @@ export const CategoriesBar = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: "#48CFAD",
-    height: screen.height * 0.04,
+    height: screen.height * 0.03,
     justifyContent: "space-around",
     alignItems: "center",
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 6.68,
     borderBottomColor: "#FFCE54",
-    borderBottomWidth: isAndroid ? 1 : 0,
+    borderBottomWidth: isAndroid ? 1 : 1,
     width: "100%",
-    position: "absolute",
-    zIndex: 1,
   },
 });
 
@@ -54,5 +45,6 @@ export const CategoriesText = (selected: boolean) =>
       fontFamily: "Mohave-Medium",
       color: selected ? "#FFCE54" : "white",
       fontSize: 18,
+      borderBottomColor: selected ? "#FFCE54" : "white",
     },
   });

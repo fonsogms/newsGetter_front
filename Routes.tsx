@@ -12,7 +12,6 @@ import Registration from "./components/registration/Registration";
 import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
 
-import { OverflowMenuProvider } from "react-navigation-header-buttons";
 import { navBarStyles } from "./navbar.styles";
 const Routes = (props) => {
   const Stack = createStackNavigator();
@@ -29,77 +28,75 @@ const Routes = (props) => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <OverflowMenuProvider>
-        <Stack.Navigator>
-          {props.token ? (
-            <>
-              <Stack.Screen
-                options={{
-                  ...navBarStyles(props.token, props.setToken, true),
+      <Stack.Navigator headerMode="none">
+        {props.token ? (
+          <>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken, true),
 
-                  title: "Newsfeed",
-                }}
-                name="NewsFeed"
-              >
-                {(routeProps) => (
-                  <NewsList
-                    {...routeProps}
-                    token={props.token}
-                    setToken={props.setToken}
-                  ></NewsList>
-                )}
-              </Stack.Screen>
-              <Stack.Screen
-                options={{
-                  ...navBarStyles(props.token, props.setToken),
-                  title: "",
-                }}
-                name="ArticleWeb"
-              >
-                {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
-              </Stack.Screen>
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                name="Home"
-                options={navBarStyles(props.token, props.setToken)}
-              >
-                {(routeProps) => (
-                  <Index
-                    {...routeProps}
-                    token={props.token}
-                    setToken={props.setToken}
-                  />
-                )}
-              </Stack.Screen>
-              <Stack.Screen
-                options={{
-                  ...navBarStyles(props.token, props.setToken),
-                  title: "Registration",
-                }}
-                name="Registration"
-              >
-                {(routeProps) => <Registration {...routeProps}></Registration>}
-              </Stack.Screen>
-              <Stack.Screen
-                options={{
-                  ...navBarStyles(props.token, props.setToken),
-                  title: "Registration2",
-                }}
-                name="Registration2"
-              >
-                {(routeProps) => (
-                  <Registration2
-                    {...routeProps}
-                    setToken={props.setToken}
-                  ></Registration2>
-                )}
-              </Stack.Screen>
-            </>
-          )}
-        </Stack.Navigator>
-      </OverflowMenuProvider>
+                title: "Newsfeed",
+              }}
+              name="NewsFeed"
+            >
+              {(routeProps) => (
+                <NewsList
+                  {...routeProps}
+                  token={props.token}
+                  setToken={props.setToken}
+                ></NewsList>
+              )}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "",
+              }}
+              name="ArticleWeb"
+            >
+              {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
+            </Stack.Screen>
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Home"
+              options={navBarStyles(props.token, props.setToken)}
+            >
+              {(routeProps) => (
+                <Index
+                  {...routeProps}
+                  token={props.token}
+                  setToken={props.setToken}
+                />
+              )}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "Registration",
+              }}
+              name="Registration"
+            >
+              {(routeProps) => <Registration {...routeProps}></Registration>}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                ...navBarStyles(props.token, props.setToken),
+                title: "Registration2",
+              }}
+              name="Registration2"
+            >
+              {(routeProps) => (
+                <Registration2
+                  {...routeProps}
+                  setToken={props.setToken}
+                ></Registration2>
+              )}
+            </Stack.Screen>
+          </>
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

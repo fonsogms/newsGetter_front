@@ -7,6 +7,7 @@ import { url } from "../../globalVariables";
 import axios from "axios";
 import PoliticalComponent from "./PoliticalComponent";
 import SelectCountry from "./SelectCountry";
+import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 const Registration2 = ({ route, navigation, setToken }) => {
   enum PoliticalInclination {
     LEFT = "Left",
@@ -19,10 +20,8 @@ const Registration2 = ({ route, navigation, setToken }) => {
     item: "",
   });
   const [errors, setErrors] = useState<string[]>([]);
-  const [
-    politicalInclination,
-    setPoliticalInclination,
-  ] = useState<PoliticalInclination | null>(null);
+  const [politicalInclination, setPoliticalInclination] =
+    useState<PoliticalInclination | null>(null);
   const register = async () => {
     console.log("updated");
     try {
@@ -52,63 +51,66 @@ const Registration2 = ({ route, navigation, setToken }) => {
     }
   };
   return (
-    <View
-      style={{
-        ...main.container,
-        justifyContent: "flex-start",
-        paddingTop: 60,
-      }}
-    >
-      <Text
+    <View>
+      <NavbarHeader></NavbarHeader>
+      <View
         style={{
-          ...title.container,
-          fontFamily: "Mohave-Bold",
-          marginBottom: 20,
+          ...main.container,
+          justifyContent: "flex-start",
+          paddingTop: 60,
         }}
       >
-        Registration
-      </Text>
-      <SelectCountry
-        setSelectedLocations={setSelectedLocations}
-        selectedLocations={selectedLocations}
-      ></SelectCountry>
-      <Text
-        style={{
-          ...title.container,
-          fontFamily: "Mohave-Medium",
-          margin: 30,
-        }}
-      >
-        Political orientation
-      </Text>
-      <PoliticalComponent
-        politicalInclination={politicalInclination}
-        setPoliticalInclination={setPoliticalInclination}
-        PoliticalInclination={PoliticalInclination}
-      ></PoliticalComponent>
-      <TouchableOpacity
-        style={{ ...continueButton.container, width: 100 }}
-        onPress={() => {
-          register();
-        }}
-      >
-        <Text style={buttonText.container}>Register</Text>
-      </TouchableOpacity>
-      {errors &&
-        errors.map((elem) => {
-          return (
-            <Text
-              style={{
-                ...title.container,
-                color: "red",
-                fontSize: 20,
-                margin: 5,
-              }}
-            >
-              {elem[0].toLocaleUpperCase() + elem.slice(1)}
-            </Text>
-          );
-        })}
+        <Text
+          style={{
+            ...title.container,
+            fontFamily: "Mohave-Bold",
+            marginBottom: 20,
+          }}
+        >
+          Registration
+        </Text>
+        <SelectCountry
+          setSelectedLocations={setSelectedLocations}
+          selectedLocations={selectedLocations}
+        ></SelectCountry>
+        <Text
+          style={{
+            ...title.container,
+            fontFamily: "Mohave-Medium",
+            margin: 30,
+          }}
+        >
+          Political orientation
+        </Text>
+        <PoliticalComponent
+          politicalInclination={politicalInclination}
+          setPoliticalInclination={setPoliticalInclination}
+          PoliticalInclination={PoliticalInclination}
+        ></PoliticalComponent>
+        <TouchableOpacity
+          style={{ ...continueButton.container, width: 100 }}
+          onPress={() => {
+            register();
+          }}
+        >
+          <Text style={buttonText.container}>Register</Text>
+        </TouchableOpacity>
+        {errors &&
+          errors.map((elem) => {
+            return (
+              <Text
+                style={{
+                  ...title.container,
+                  color: "red",
+                  fontSize: 20,
+                  margin: 5,
+                }}
+              >
+                {elem[0].toLocaleUpperCase() + elem.slice(1)}
+              </Text>
+            );
+          })}
+      </View>
     </View>
   );
 };

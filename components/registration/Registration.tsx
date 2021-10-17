@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import {
   inputBox,
   buttonText,
@@ -36,82 +37,85 @@ const Registration = (props) => {
     }
   }, [password, password2]);
   return (
-    <View
-      style={{
-        ...main.container,
-        justifyContent: "flex-start",
-        paddingTop: 60,
-      }}
-    >
-      <Text
-        style={{
-          ...title.container,
-          fontFamily: "Mohave-Bold",
-          marginBottom: 20,
-        }}
-      >
-        Registration
-      </Text>
+    <View>
+      <NavbarHeader></NavbarHeader>
       <View
         style={{
-          ...inputsView.container,
-          justifyContent: "space-between",
-          height: 150,
-          marginBottom: 20,
+          ...main.container,
+          justifyContent: "flex-start",
+          paddingTop: 60,
         }}
       >
-        <View style={inputBox.container}>
-          <TextInput
-            style={inputText.container}
-            value={username}
-            onChangeText={(text) => {
-              setUsername(text);
-            }}
-          />
-        </View>
-        <View
+        <Text
           style={{
-            ...inputBox.container,
+            ...title.container,
+            fontFamily: "Mohave-Bold",
+            marginBottom: 20,
           }}
         >
-          <TextInput
-            style={inputText.container}
-            secureTextEntry={password.hide}
-            value={password.value}
-            onChangeText={(text) => {
-              setPassword({ value: text, hide: true });
-            }}
-          />
-        </View>
+          Registration
+        </Text>
         <View
           style={{
-            ...inputBox.container,
-            borderColor: equalPass ? "blue" : "red",
+            ...inputsView.container,
+            justifyContent: "space-between",
+            height: 150,
+            marginBottom: 20,
           }}
         >
-          <TextInput
-            style={inputText.container}
-            secureTextEntry={password2.hide}
-            value={password2.value}
-            onChangeText={(text) => {
-              setPassword2({ value: text, hide: true });
+          <View style={inputBox.container}>
+            <TextInput
+              style={inputText.container}
+              value={username}
+              onChangeText={(text) => {
+                setUsername(text);
+              }}
+            />
+          </View>
+          <View
+            style={{
+              ...inputBox.container,
             }}
-          />
+          >
+            <TextInput
+              style={inputText.container}
+              secureTextEntry={password.hide}
+              value={password.value}
+              onChangeText={(text) => {
+                setPassword({ value: text, hide: true });
+              }}
+            />
+          </View>
+          <View
+            style={{
+              ...inputBox.container,
+              borderColor: equalPass ? "blue" : "red",
+            }}
+          >
+            <TextInput
+              style={inputText.container}
+              secureTextEntry={password2.hide}
+              value={password2.value}
+              onChangeText={(text) => {
+                setPassword2({ value: text, hide: true });
+              }}
+            />
+          </View>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            if (equalPass) {
+              props.navigation.navigate("Registration2", {
+                username,
+                password: password.value,
+              });
+            }
+          }}
+          style={{ ...continueButton.container, width: 100 }}
+        >
+          <Text style={buttonText.container}>Continue</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          if (equalPass) {
-            props.navigation.navigate("Registration2", {
-              username,
-              password: password.value,
-            });
-          }
-        }}
-        style={{ ...continueButton.container, width: 100 }}
-      >
-        <Text style={buttonText.container}>Continue</Text>
-      </TouchableOpacity>
     </View>
   );
 };

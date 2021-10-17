@@ -27,8 +27,9 @@ const Categories = ({
       {Object.keys(Category).map((category) => {
         let selected = false;
         if (category === "GENERAL") return null;
-        if (category === "TECHNOLOGY") category = "Tech";
         if (selectedCategory == category) selected = true;
+        if (category === "TECHNOLOGY") category = "Tech";
+
         return (
           <TouchableOpacity
             onPress={() => {

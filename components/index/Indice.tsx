@@ -14,6 +14,7 @@ import {
   title,
 } from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 const Indice = (props) => {
   const [errors, setErrors] = useState<string[]>([]);
 
@@ -61,69 +62,72 @@ const Indice = (props) => {
       err.message;
     }); */
   return (
-    <View style={main.container}>
-      <Text style={title.container}>
-        Welcome to Newsgetter, the news portal where users see their own datas
-      </Text>
-      <View style={inputsView.container}>
-        <View style={inputBox.container}>
-          <TextInput
-            style={inputText.container}
-            onChangeText={(text) => {
-              setUsername(text);
-            }}
-            value={username}
-          />
-        </View>
-        <View style={inputBox.container}>
-          <TextInput
-            style={inputText.container}
-            secureTextEntry={true}
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-            value={password}
-          />
-        </View>
-      </View>
-      <View style={links.container}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("working?");
-            props.navigation.navigate("Registration");
-          }}
-        >
-          <Text style={createAccountText.container}>Create account</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={loginButton.container}
-          onPress={() => {
-            console.log("doingit!");
-            onSubmit();
-          }}
-        >
-          <Text style={buttonText.container}>Login</Text>
-        </TouchableOpacity>
-      </View>
-      <Image
-        style={{ height: 100, resizeMode: "contain" }}
-        source={require("../../assets/logo.png")}
-      ></Image>
-      {errors &&
-        errors.map((elem) => {
-          return (
-            <Text
-              style={{
-                ...title.container,
-                color: "red",
-                fontSize: 20,
-                margin: 5,
+    <View>
+      <NavbarHeader hideBackButton={true}></NavbarHeader>
+      <View style={main.container}>
+        <Text style={title.container}>
+          Welcome to Newsgetter, the news portal where users see their own datas
+        </Text>
+        <View style={inputsView.container}>
+          <View style={inputBox.container}>
+            <TextInput
+              style={inputText.container}
+              onChangeText={(text) => {
+                setUsername(text);
               }}
-            >
-              {elem[0].toLocaleUpperCase() + elem.slice(1)}
-            </Text>
-          );
-        })}
+              value={username}
+            />
+          </View>
+          <View style={inputBox.container}>
+            <TextInput
+              style={inputText.container}
+              secureTextEntry={true}
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
+              value={password}
+            />
+          </View>
+        </View>
+        <View style={links.container}>
+          <TouchableOpacity
+            onPress={() => {
+              console.log("working?");
+              props.navigation.navigate("Registration");
+            }}
+          >
+            <Text style={createAccountText.container}>Create account</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={loginButton.container}
+            onPress={() => {
+              console.log("doingit!");
+              onSubmit();
+            }}
+          >
+            <Text style={buttonText.container}>Login</Text>
+          </TouchableOpacity>
+        </View>
+        <Image
+          style={{ height: 100, resizeMode: "contain" }}
+          source={require("../../assets/logo.png")}
+        ></Image>
+        {errors &&
+          errors.map((elem) => {
+            return (
+              <Text
+                style={{
+                  ...title.container,
+                  color: "red",
+                  fontSize: 20,
+                  margin: 5,
+                }}
+              >
+                {elem[0].toLocaleUpperCase() + elem.slice(1)}
+              </Text>
+            );
+          })}
+      </View>
     </View>
   );
 };

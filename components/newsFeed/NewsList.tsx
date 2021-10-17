@@ -13,11 +13,18 @@ import Article from "./Article";
 import Header from "../Header";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Categories from "./Categories";
+import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
+import { Modalize } from "react-native-modalize";
+
 const NewsList = (props) => {
   const flatListContainer = useRef(null);
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
   const [limit, setLimit] = useState<number>(0);
+  const modalizeRef = useRef<Modalize>(null);
+  const onOpen = (): void => {
+    modalizeRef.current?.open();
+  };
   useEffect(() => {
     console.warn("pasa?", props.route.params);
     if (!props.route.params) {
@@ -78,28 +85,36 @@ const NewsList = (props) => {
     );
   };
   return (
-    <View style={{ paddingTop: 35 }}>
-      <Categories
-        selectedCategory={
-          props.route.params ? props.route.params.selectedCategory : "GENERAL"
-        }
-        navigation={props.navigation}
-        articles={articles}
-        setArticles={setArticles}
-      ></Categories>
+    <View>
+      <NavbarHeader hideBackButton={true} onOpen={onOpen}></NavbarHeader>
 
-      <FlatList
-        ref={flatListContainer}
-        refreshing={true}
-        data={articles}
-        renderItem={item}
-        onEndReached={() => {
-          console.log("the end");
-          setLimit(limit + 5);
-        }}
-        onEndReachedThreshold={0.9}
-        //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
-      ></FlatList>
+      <View>
+        <Modalize ref={modalizeRef}>
+          <View></View>
+        </Modalize>
+
+        <Categories
+          selectedCategory={
+            props.route.params ? props.route.params.selectedCategory : "GENERAL"
+          }
+          navigation={props.navigation}
+          articles={articles}
+          setArticles={setArticles}
+        ></Categories>
+
+        <FlatList
+          ref={flatListContainer}
+          refreshing={true}
+          data={articles}
+          renderItem={item}
+          onEndReached={() => {
+            console.log("the end");
+            setLimit(limit + 5);
+          }}
+          onEndReachedThreshold={0.9}
+          //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
+        ></FlatList>
+      </View>
     </View>
   );
 };
