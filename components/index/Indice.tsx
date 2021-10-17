@@ -15,11 +15,25 @@ import {
 } from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
+interface Username {
+  value: string;
+  isClean: boolean;
+}
+interface Password {
+  value: string;
+  isClean: boolean;
+}
 const Indice = (props) => {
   const [errors, setErrors] = useState<string[]>([]);
 
-  const [username, setUsername] = useState<string>("username");
-  const [password, setPassword] = useState<string>("password");
+  const [username, setUsername] = useState<Username>({
+    value: "username",
+    isClean: false,
+  });
+  const [password, setPassword] = useState<Password>({
+    value: "Password",
+    isClean: false,
+  });
 
   const onSubmit = async (): Promise<void> => {
     console.log(username, password);
@@ -27,8 +41,8 @@ const Indice = (props) => {
       const { data } = await axios.post<{ token: string }>(
         url + "/api/auth/signin",
         {
-          username,
-          password,
+          username: username.value,
+          password: password.value,
         }
       );
       await AsyncStorage.setItem("token", data.token);
@@ -53,14 +67,7 @@ const Indice = (props) => {
       });
     }
   }, [props.token]);
-  /*  axios
-    .get(url)
-    .then(({ data }) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      err.message;
-    }); */
+
   return (
     <View>
       <NavbarHeader hideBackButton={true}></NavbarHeader>
@@ -72,27 +79,36 @@ const Indice = (props) => {
           <View style={inputBox.container}>
             <TextInput
               style={inputText.container}
-              onChangeText={(text) => {
-                setUsername(text);
+              onFocus={() => {
+                if (!username.isClean) {
+                  setUsername({ value: "", isClean: true });
+                }
               }}
-              value={username}
+              onChangeText={(text) => {
+                setUsername({ value: text, isClean: true });
+              }}
+              value={username.value}
             />
           </View>
           <View style={inputBox.container}>
             <TextInput
               style={inputText.container}
               secureTextEntry={true}
-              onChangeText={(text) => {
-                setPassword(text);
+              onFocus={() => {
+                if (!password.isClean) {
+                  setPassword({ value: "", isClean: true });
+                }
               }}
-              value={password}
+              onChangeText={(text) => {
+                setPassword({ value: text, isClean: true });
+              }}
+              value={password.value}
             />
           </View>
         </View>
         <View style={links.container}>
           <TouchableOpacity
             onPress={() => {
-              console.log("working?");
               props.navigation.navigate("Registration");
             }}
           >
@@ -101,7 +117,6 @@ const Indice = (props) => {
           <TouchableOpacity
             style={loginButton.container}
             onPress={() => {
-              console.log("doingit!");
               onSubmit();
             }}
           >
