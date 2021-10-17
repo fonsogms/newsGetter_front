@@ -19,8 +19,8 @@ const NewsList = (props) => {
   const [votes, setVotes] = useState<VoteInterface[]>([]);
   const [limit, setLimit] = useState<number>(0);
   useEffect(() => {
+    console.warn("pasa?", props.route.params);
     if (!props.route.params) {
-      console.log("un dia bien");
       getArticles(Category.GENERAL, limit);
     } else {
       getArticles(props.route.params.selectedCategory, limit);
@@ -78,7 +78,7 @@ const NewsList = (props) => {
     );
   };
   return (
-    <View>
+    <View style={{ paddingTop: 35 }}>
       <Categories
         selectedCategory={
           props.route.params ? props.route.params.selectedCategory : "GENERAL"
@@ -90,6 +90,7 @@ const NewsList = (props) => {
 
       <FlatList
         ref={flatListContainer}
+        refreshing={true}
         data={articles}
         renderItem={item}
         onEndReached={() => {

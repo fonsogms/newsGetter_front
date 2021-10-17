@@ -33,7 +33,9 @@ const Categories = ({
           <TouchableOpacity
             onPress={() => {
               setArticles([]);
-              navigation.navigate("NewsFeed", { selectedCategory: category });
+              navigation.navigate("NewsFeed", {
+                selectedCategory: category === "Tech" ? "TECHNOLOGY" : category,
+              });
             }}
           >
             <Text key={category} style={CategoriesText(selected).container}>

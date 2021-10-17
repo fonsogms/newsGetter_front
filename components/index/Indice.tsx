@@ -32,9 +32,7 @@ const Indice = (props) => {
       );
       await AsyncStorage.setItem("token", data.token);
       props.setToken(data.token);
-      props.navigation.navigate("NewsFeed", {
-        token: props.token,
-      });
+
       setErrors([]);
     } catch (err) {
       console.log(err);
@@ -47,6 +45,13 @@ const Indice = (props) => {
       }
     }
   };
+  useEffect(() => {
+    if (props.token) {
+      props.navigation.navigate("NewsFeed", {
+        token: props.token,
+      });
+    }
+  }, [props.token]);
   /*  axios
     .get(url)
     .then(({ data }) => {

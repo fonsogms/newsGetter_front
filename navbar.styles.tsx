@@ -32,7 +32,7 @@ const headerStyle = {
     height: 2,
   },
   shadowColor: "#000",
-  shadowOpacity: 0.5,
+  shadowOpacity: 0.2,
   shadowRadius: 3.84,
   elevation: 8,
 };
