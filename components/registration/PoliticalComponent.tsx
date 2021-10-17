@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { theme } from "../../theme";
 import { politicalButtons, politicalOptionBox, politicalText } from "./style";
 
 const PoliticalComponent = (props) => {
@@ -13,7 +14,7 @@ const PoliticalComponent = (props) => {
         style={{
           ...politicalOptionBox.container,
           backgroundColor:
-            props.politicalInclination == "Left" ? "#FFCE54" : "white",
+            props.politicalInclination == "Left" ? theme.yellow : "white",
         }}
         onPress={() => {
           props.setPoliticalInclination(props.PoliticalInclination.LEFT);
@@ -22,7 +23,7 @@ const PoliticalComponent = (props) => {
         <Text
           style={{
             ...politicalText.container,
-            color: "#48CFAD",
+            color: theme.green,
           }}
         >
           Left
@@ -32,7 +33,9 @@ const PoliticalComponent = (props) => {
         style={{
           ...politicalOptionBox.container,
           backgroundColor:
-            props.politicalInclination == "Center_left" ? "#FFCE54" : "white",
+            props.politicalInclination == "Center_left"
+              ? theme.yellow
+              : "white",
         }}
         onPress={() => {
           props.setPoliticalInclination(props.PoliticalInclination.CENTER_LEFT);
@@ -46,7 +49,9 @@ const PoliticalComponent = (props) => {
         style={{
           ...politicalOptionBox.container,
           backgroundColor:
-            props.politicalInclination == "Center_right" ? "#48CFAD" : "white",
+            props.politicalInclination == "Center_right"
+              ? theme.green
+              : "white",
         }}
         onPress={() => {
           props.setPoliticalInclination(
@@ -62,13 +67,13 @@ const PoliticalComponent = (props) => {
         style={{
           ...politicalOptionBox.container,
           backgroundColor:
-            props.politicalInclination == "Right" ? "#48CFAD" : "white",
+            props.politicalInclination == "Right" ? theme.green : "white",
         }}
         onPress={() => {
           props.setPoliticalInclination(props.PoliticalInclination.RIGHT);
         }}
       >
-        <Text style={{ ...politicalText.container, color: "#FFCE54" }}>
+        <Text style={{ ...politicalText.container, color: theme.yellow }}>
           Right
         </Text>
       </TouchableOpacity>

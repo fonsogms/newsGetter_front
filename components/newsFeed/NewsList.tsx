@@ -15,6 +15,7 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Categories from "./Categories";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { Modalize } from "react-native-modalize";
+import ModalMenu from "../general/ModalMenu";
 
 const NewsList = (props) => {
   const flatListContainer = useRef(null);
@@ -90,7 +91,7 @@ const NewsList = (props) => {
 
       <View>
         <Modalize ref={modalizeRef}>
-          <View></View>
+          <ModalMenu setToken={props.setToken} t></ModalMenu>
         </Modalize>
 
         <Categories

@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 import { screen } from "../../../globalVariables";
+import { theme } from "../../../theme";
 
 export const headerStyle = StyleSheet.create({
   container: {
-    backgroundColor: "#48CFAD",
+    backgroundColor: theme.green,
     width: "100%",
     height: screen.height * 0.12,
     shadowColor: "#000",

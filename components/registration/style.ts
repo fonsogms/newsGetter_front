@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
+import { theme } from "../../theme";
 export const continueButton = StyleSheet.create({
   container: {
-    backgroundColor: "#48CFAD",
+    backgroundColor: theme.green,
     width: 68,
     height: 30,
     borderRadius: 2,
@@ -39,7 +40,7 @@ export const politicalOptionBox = StyleSheet.create({
 });
 export const politicalText = StyleSheet.create({
   container: {
-    fontFamily: "Mohave-Regular",
+    fontFamily: theme.mohave_Regular,
     fontSize: 14,
   },
 });

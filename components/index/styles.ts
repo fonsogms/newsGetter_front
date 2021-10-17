@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import { theme } from "../../theme";
 
 export const loginButton = StyleSheet.create({
   container: {
-    backgroundColor: "#48CFAD",
+    backgroundColor: theme.green,
     width: 68,
     height: 30,
     borderRadius: 2,
@@ -14,8 +15,8 @@ export const createAccountText = StyleSheet.create({
   container: {
     fontSize: 24,
     textAlign: "center",
-    fontFamily: "Mohave-Medium",
-    color: "#0066FF",
+    fontFamily: theme.mohave_medium,
+    color: theme.blue,
     textDecorationLine: "underline",
   },
 });

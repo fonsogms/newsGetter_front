@@ -8,6 +8,7 @@ import axios from "axios";
 import PoliticalComponent from "./PoliticalComponent";
 import SelectCountry from "./SelectCountry";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
+import { theme } from "../../theme";
 const Registration2 = ({ route, navigation, setToken }) => {
   enum PoliticalInclination {
     LEFT = "Left",
@@ -76,7 +77,7 @@ const Registration2 = ({ route, navigation, setToken }) => {
         <Text
           style={{
             ...title.container,
-            fontFamily: "Mohave-Medium",
+            fontFamily: theme.green,
             margin: 30,
           }}
         >

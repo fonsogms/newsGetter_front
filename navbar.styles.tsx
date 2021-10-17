@@ -3,13 +3,14 @@ import Logo from "./components/Logo";
 import React from "react";
 import { View } from "react-native";
 import { screen } from "./globalVariables";
+import { theme } from "./theme";
 export const navBarStyles = (token, setToken, noShadow?: boolean) => {
   return {
     headerTitle: () => <Logo></Logo>,
     title: "Home",
     headerBackTitleStyle: {
       color: "white",
-      fontFamily: "Mohave-Medium",
+      fontFamily: theme.mohave_medium,
       fontSize: 20,
     },
     headerTitleAlign: "center",
@@ -25,7 +26,7 @@ export const navBarStyles = (token, setToken, noShadow?: boolean) => {
 };
 
 const headerStyle = {
-  backgroundColor: "#48CFAD",
+  backgroundColor: theme.green,
   height: screen.height * 0.12,
   shadowOffset: {
     width: 0,
@@ -37,8 +38,8 @@ const headerStyle = {
   elevation: 8,
 };
 const noShadowHeader = {
-  backgroundColor: "#48CFAD",
+  backgroundColor: theme.green,
   height: 110,
-  borderBottomColor: "#48CFAD",
-  shadowColor: "#48CFAD",
+  borderBottomColor: theme.green,
+  shadowColor: theme.green,
 };

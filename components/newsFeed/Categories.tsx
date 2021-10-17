@@ -45,31 +45,6 @@ const Categories = ({
           </TouchableOpacity>
         );
       })}
-      {/*   <Text
-        style={{ fontFamily: "Mohave-Medium", color: "white", fontSize: 20 }}
-      >
-        Bussines
-      </Text>
-      <Text
-        style={{ fontFamily: "Mohave-Medium", color: "white", fontSize: 20 }}
-      >
-        Tech
-      </Text>
-      <Text
-        style={{ fontFamily: "Mohave-Medium", color: "white", fontSize: 20 }}
-      >
-        Entertainment
-      </Text>
-      <Text
-        style={{ fontFamily: "Mohave-Medium", color: "white", fontSize: 20 }}
-      >
-        Sports
-      </Text>
-      <Text
-        style={{ fontFamily: "Mohave-Medium", color: "white", fontSize: 20 }}
-      >
-        Science
-      </Text> */}
     </View>
   );
 };

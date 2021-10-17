@@ -3,6 +3,8 @@ import { Animated, View, Image, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios, { AxiosError } from "axios";
 import { url } from "../../globalVariables";
+import { theme } from "../../theme";
+
 //@refresh reset
 const VotingSection = ({
   index,
@@ -118,9 +120,9 @@ const VotingSection = ({
         <Text
           style={{
             margin: 10,
-            fontFamily: "Mohave-Medium",
+            fontFamily: theme.mohave_medium,
             fontSize: 18,
-            color: "#FFCE54",
+            color: theme.yellow,
           }}
         >
           Left
@@ -128,9 +130,9 @@ const VotingSection = ({
         <Text
           style={{
             margin: 10,
-            fontFamily: "Mohave-Medium",
+            fontFamily: theme.mohave_medium,
             fontSize: 18,
-            color: "#48CFAD",
+            color: theme.green,
           }}
         >
           Right
@@ -148,14 +150,14 @@ const VotingSection = ({
       >
         <View
           style={{
-            backgroundColor: "#FFCE54",
+            backgroundColor: theme.yellow,
             height: "100%",
             width: `${leftPercentage}%`,
           }}
         >
           <Text
             style={{
-              fontFamily: "Mohave-Medium",
+              fontFamily: theme.mohave_medium,
               fontSize: 18,
               color: "grey",
             }}
@@ -165,7 +167,7 @@ const VotingSection = ({
         </View>
         <View
           style={{
-            backgroundColor: "#48CFAD",
+            backgroundColor: theme.green,
             height: "100%",
             width: `${rightPercentage}%`,
             flexDirection: "row",
@@ -174,7 +176,7 @@ const VotingSection = ({
         >
           <Text
             style={{
-              fontFamily: "Mohave-Medium",
+              fontFamily: theme.mohave_medium,
               fontSize: 18,
               color: "grey",
             }}

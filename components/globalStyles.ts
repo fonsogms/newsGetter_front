@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { screen } from "../globalVariables";
+import { theme } from "../theme";
 
 export const inputsView = StyleSheet.create({
   container: {
@@ -17,13 +18,14 @@ export const main = StyleSheet.create({
     justifyContent: "space-evenly",
   },
 });
+
 export const title = StyleSheet.create({
   container: {
-    color: "#8C8C8C",
+    color: theme.dark_grey,
     fontSize: 25,
     width: "70%",
     textAlign: "center",
-    fontFamily: "Mohave-Medium",
+    fontFamily: theme.mohave_medium,
   },
 });
 export const inputBox = StyleSheet.create({
@@ -33,21 +35,21 @@ export const inputBox = StyleSheet.create({
     width: "100%",
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "#E5E5E5",
+    borderColor: theme.light_grey,
   },
 });
 export const inputText = StyleSheet.create({
   container: {
-    fontFamily: "Mohave-Medium",
+    fontFamily: theme.mohave_medium,
     height: 40,
-    color: "#979494",
+    color: theme.grey,
     fontSize: 18,
   },
 });
 export const buttonText = StyleSheet.create({
   container: {
-    fontFamily: "Mohave-Medium",
-    color: "#FFCE54",
+    fontFamily: theme.mohave_medium,
+    color: theme.yellow,
     fontSize: 24,
     textAlign: "center",
   },

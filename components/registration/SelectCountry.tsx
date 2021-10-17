@@ -4,6 +4,7 @@ import { countries } from "../../countries";
 import { Icon } from "react-native-elements";
 
 import SelectBox from "react-native-multi-selectbox";
+import { theme } from "../../theme";
 const SelectCountry = (props) => {
   return (
     <SelectBox
@@ -13,26 +14,32 @@ const SelectCountry = (props) => {
       value={props.selectedLocations}
       onChange={(val) => props.setSelectedLocations(val)}
       selectIcon={
-        <Icon name={"chevron-down"} type="evilicon" color="#48CFAD" />
+        <Icon name={"chevron-down"} type="evilicon" color={theme.green} />
       }
       hideInputFilter={false}
       containerStyle={{ margin: 10 }}
       labelStyle={{
-        fontFamily: "Mohave-Medium",
+        fontFamily: theme.mohave_medium,
         margin: 10,
       }}
-      inputFilterContainerStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
-      inputFilterStyle={{ fontFamily: "Mohave-Medium" }}
-      optionsLabelStyle={{
-        fontFamily: "Mohave-Medium",
+      inputFilterContainerStyle={{
+        fontFamily: theme.mohave_medium,
+        margin: 10,
       }}
-      optionContainerStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
-      multiOptionContainerStyle={{ fontFamily: "Mohave-Medium", margin: 10 }}
-      multiOptionsLabelStyle={{ fontFamily: "Mohave-Medium" }}
-      multiListEmptyLabelStyle={{ fontFamily: "Mohave-Medium" }}
-      listEmptyLabelStyle={{ fontFamily: "Mohave-Medium" }}
+      inputFilterStyle={{ fontFamily: theme.mohave_medium }}
+      optionsLabelStyle={{
+        fontFamily: theme.mohave_medium,
+      }}
+      optionContainerStyle={{ fontFamily: theme.mohave_medium, margin: 10 }}
+      multiOptionContainerStyle={{
+        fontFamily: theme.mohave_medium,
+        margin: 10,
+      }}
+      multiOptionsLabelStyle={{ fontFamily: theme.mohave_medium }}
+      multiListEmptyLabelStyle={{ fontFamily: theme.mohave_medium }}
+      listEmptyLabelStyle={{ fontFamily: theme.mohave_medium }}
       selectedItemStyle={{
-        fontFamily: "Mohave-Medium",
+        fontFamily: theme.mohave_medium,
       }}
     />
   );

@@ -4,6 +4,7 @@ import Routes from "./Routes";
 import axios from "axios";
 import { url } from "./globalVariables";
 import { ActivityIndicator, View } from "react-native";
+import { theme } from "./theme";
 export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
@@ -35,7 +36,7 @@ export default function App() {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center" }}>
-        <ActivityIndicator size="large" color="#48CFAD" />
+        <ActivityIndicator size="large" color={theme.green} />
       </View>
     );
   }
