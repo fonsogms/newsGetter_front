@@ -15,7 +15,9 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Categories from "./Categories";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { Modalize } from "react-native-modalize";
-import ModalMenu from "../general/ModalMenu";
+import ModalMenu from "../general/ModalMenu/ModalMenu";
+import { theme } from "../../theme";
+import { white } from "react-native-paper/lib/typescript/src/styles/colors";
 
 const NewsList = (props) => {
   const flatListContainer = useRef(null);
@@ -90,7 +92,7 @@ const NewsList = (props) => {
       <NavbarHeader hideBackButton={true} onOpen={onOpen}></NavbarHeader>
 
       <View>
-        <Modalize ref={modalizeRef}>
+        <Modalize modalStyle={{ backgroundColor: "white" }} ref={modalizeRef}>
           <ModalMenu setToken={props.setToken} t></ModalMenu>
         </Modalize>
 
