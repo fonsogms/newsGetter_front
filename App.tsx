@@ -5,6 +5,7 @@ import axios from "axios";
 import { url } from "./globalVariables";
 import { ActivityIndicator, View } from "react-native";
 import { theme } from "./theme";
+import { RootContext } from "./rootContext";
 export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
@@ -14,7 +15,6 @@ export default function App() {
         console.log(" get token happening?");
 
         const saved_token = await AsyncStorage.getItem("token");
-        console.log(saved_token, "token in the phone");
         const { data } = await axios.post<{ token: string }>(
           url + "/api/auth/loggedin",
           { token: saved_token }
@@ -42,6 +42,8 @@ export default function App() {
   }
 
   return (
-    <Routes style={{ flex: 1 }} token={token} setToken={setToken}></Routes>
+    <RootContext.Provider value={{ token, setToken }}>
+      <Routes style={{ flex: 1 }} token={token} setToken={setToken}></Routes>
+    </RootContext.Provider>
   );
 }

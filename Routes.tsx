@@ -12,8 +12,9 @@ import Registration from "./components/registration/Registration";
 import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
 
-import { navBarStyles } from "./navbar.styles";
+import { useRootContext } from "./rootContext";
 const Routes = (props) => {
+  const { token, setToken } = useRootContext();
   const Stack = createStackNavigator();
 
   let [fontsLoaded] = useFonts({
@@ -29,12 +30,10 @@ const Routes = (props) => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator headerMode="none">
-        {props.token ? (
+        {token ? (
           <>
             <Stack.Screen
               options={{
-                ...navBarStyles(props.token, props.setToken, true),
-
                 title: "Newsfeed",
               }}
               name="NewsFeed"
@@ -42,14 +41,13 @@ const Routes = (props) => {
               {(routeProps) => (
                 <NewsList
                   {...routeProps}
-                  token={props.token}
-                  setToken={props.setToken}
+                  token={token}
+                  setToken={setToken}
                 ></NewsList>
               )}
             </Stack.Screen>
             <Stack.Screen
               options={{
-                ...navBarStyles(props.token, props.setToken),
                 title: "",
               }}
               name="ArticleWeb"
@@ -59,21 +57,13 @@ const Routes = (props) => {
           </>
         ) : (
           <>
-            <Stack.Screen
-              name="Home"
-              options={navBarStyles(props.token, props.setToken)}
-            >
+            <Stack.Screen name="Home">
               {(routeProps) => (
-                <Index
-                  {...routeProps}
-                  token={props.token}
-                  setToken={props.setToken}
-                />
+                <Index {...routeProps} token={token} setToken={setToken} />
               )}
             </Stack.Screen>
             <Stack.Screen
               options={{
-                ...navBarStyles(props.token, props.setToken),
                 title: "Registration",
               }}
               name="Registration"
@@ -82,7 +72,6 @@ const Routes = (props) => {
             </Stack.Screen>
             <Stack.Screen
               options={{
-                ...navBarStyles(props.token, props.setToken),
                 title: "Registration2",
               }}
               name="Registration2"
@@ -90,7 +79,7 @@ const Routes = (props) => {
               {(routeProps) => (
                 <Registration2
                   {...routeProps}
-                  setToken={props.setToken}
+                  setToken={setToken}
                 ></Registration2>
               )}
             </Stack.Screen>

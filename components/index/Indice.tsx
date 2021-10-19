@@ -15,6 +15,7 @@ import {
 } from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
+import { useRootContext } from "../../rootContext";
 interface Username {
   value: string;
   isClean: boolean;
@@ -24,6 +25,7 @@ interface Password {
   isClean: boolean;
 }
 const Indice = (props) => {
+  const { token, setToken } = useRootContext();
   const [errors, setErrors] = useState<string[]>([]);
 
   const [username, setUsername] = useState<Username>({
@@ -46,7 +48,7 @@ const Indice = (props) => {
         }
       );
       await AsyncStorage.setItem("token", data.token);
-      props.setToken(data.token);
+      setToken(data.token);
 
       setErrors([]);
     } catch (err) {
@@ -61,12 +63,12 @@ const Indice = (props) => {
     }
   };
   useEffect(() => {
-    if (props.token) {
+    if (token) {
       props.navigation.navigate("NewsFeed", {
-        token: props.token,
+        token: token,
       });
     }
-  }, [props.token]);
+  }, [token]);
 
   return (
     <View>

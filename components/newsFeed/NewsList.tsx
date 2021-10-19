@@ -10,16 +10,15 @@ import {
   VoteInterface,
 } from "./article.interface";
 import Article from "./Article";
-import Header from "../Header";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import Categories from "./Categories";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { Modalize } from "react-native-modalize";
 import ModalMenu from "../general/ModalMenu/ModalMenu";
-import { theme } from "../../theme";
-import { white } from "react-native-paper/lib/typescript/src/styles/colors";
+import { useRootContext } from "../../rootContext";
 
 const NewsList = (props) => {
+  const { token, setToken } = useRootContext();
   const flatListContainer = useRef(null);
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
@@ -42,7 +41,7 @@ const NewsList = (props) => {
         articles: DBArticleInterface[];
         votes: VoteInterface[];
       }>(url + `/api/news?category=${category}&limit=${limit}`, {
-        headers: { Authorization: `Bearer ${props.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const { articles: apiArticles, votes } = data;
       setArticles([...articles, ...apiArticles]);
@@ -83,19 +82,17 @@ const NewsList = (props) => {
         leftVotes={leftVotes}
         rightVotes={rightVotes}
         voteValue={currentVote}
-        token={props.token}
+        token={token}
       ></Article>
     );
   };
   return (
     <View>
       <NavbarHeader hideBackButton={true} onOpen={onOpen}></NavbarHeader>
-
+      <Modalize modalStyle={{ backgroundColor: "white" }} ref={modalizeRef}>
+        <ModalMenu setToken={setToken}></ModalMenu>
+      </Modalize>
       <View>
-        <Modalize modalStyle={{ backgroundColor: "white" }} ref={modalizeRef}>
-          <ModalMenu setToken={props.setToken} t></ModalMenu>
-        </Modalize>
-
         <Categories
           selectedCategory={
             props.route.params ? props.route.params.selectedCategory : "GENERAL"
@@ -106,6 +103,7 @@ const NewsList = (props) => {
         ></Categories>
 
         <FlatList
+          style={{ height: "100%" }}
           ref={flatListContainer}
           refreshing={true}
           data={articles}

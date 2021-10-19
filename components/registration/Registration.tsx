@@ -114,7 +114,7 @@ const Registration = (props) => {
               secureTextEntry={password2.hide}
               value={password2.value}
               onFocus={() => {
-                if (!password.value) {
+                if (!password2.hide) {
                   setPassword2({ value: "", hide: true });
                 }
               }}
