@@ -13,6 +13,7 @@ import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
 
 import { useRootContext } from "./rootContext";
+import AddUser from "./components/adduser/AddUser";
 const Routes = (props) => {
   const { token, setToken } = useRootContext();
   const Stack = createStackNavigator();
@@ -53,6 +54,14 @@ const Routes = (props) => {
               name="ArticleWeb"
             >
               {(routeProps) => <ArticleWeb {...routeProps}></ArticleWeb>}
+            </Stack.Screen>
+            <Stack.Screen
+              options={{
+                title: "AddUser",
+              }}
+              name="AddUser"
+            >
+              {(routeProps) => <AddUser {...routeProps}></AddUser>}
             </Stack.Screen>
           </>
         ) : (

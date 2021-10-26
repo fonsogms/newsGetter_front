@@ -6,24 +6,22 @@ import { url } from "./globalVariables";
 import { ActivityIndicator, View } from "react-native";
 import { theme } from "./theme";
 import { RootContext } from "./rootContext";
+
 export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
   useEffect(() => {
     async function getToken() {
       try {
-        console.log(" get token happening?");
-
         const saved_token = await AsyncStorage.getItem("token");
         const { data } = await axios.post<{ token: string }>(
           url + "/api/auth/loggedin",
           { token: saved_token }
         );
-        console.log(data.token, "the refreshed token");
 
         setToken(data.token);
       } catch (err) {
-        console.log(err.response.data.message);
+        // console.log(err.response.data.message);
         setToken("");
       }
     }
@@ -33,6 +31,7 @@ export default function App() {
   useEffect(() => {
     setLoading(false);
   }, [token]);
+
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center" }}>

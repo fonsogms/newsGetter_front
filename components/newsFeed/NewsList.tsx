@@ -13,9 +13,8 @@ import Article from "./Article";
 import { FlatList } from "react-native-gesture-handler";
 import Categories from "./Categories";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
-import { Modalize } from "react-native-modalize";
-import ModalMenu from "../general/ModalMenu/ModalMenu";
 import { useRootContext } from "../../rootContext";
+import { AddButton } from "./AddButton";
 
 const NewsList = (props) => {
   const { token, setToken } = useRootContext();
@@ -23,10 +22,7 @@ const NewsList = (props) => {
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
   const [limit, setLimit] = useState<number>(0);
-  const modalizeRef = useRef<Modalize>(null);
-  const onOpen = (): void => {
-    modalizeRef.current?.open();
-  };
+
   useEffect(() => {
     console.warn("pasa?", props.route.params);
     if (!props.route.params) {
@@ -88,10 +84,8 @@ const NewsList = (props) => {
   };
   return (
     <View>
-      <NavbarHeader hideBackButton={true} onOpen={onOpen}></NavbarHeader>
-      <Modalize modalStyle={{ backgroundColor: "white" }} ref={modalizeRef}>
-        <ModalMenu setToken={setToken}></ModalMenu>
-      </Modalize>
+      <NavbarHeader hideBackButton={true} showBurgerMenu></NavbarHeader>
+
       <View>
         <Categories
           selectedCategory={
@@ -109,13 +103,14 @@ const NewsList = (props) => {
           data={articles}
           renderItem={item}
           onEndReached={() => {
-            console.log("the end");
+            // console.log("the end");
             setLimit(limit + 5);
           }}
           onEndReachedThreshold={0.9}
           //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
         ></FlatList>
       </View>
+      <AddButton navigate={props.navigation.navigate}></AddButton>
     </View>
   );
 };
