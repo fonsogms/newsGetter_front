@@ -83,7 +83,7 @@ const SumbitUrlSection = ({
         renderDropdownIcon={() => (
           <>
             <Ionicons
-              name="ios-arrow-down"
+              name="md-chevron-down-outline"
               size={25}
               color={theme.green}
             ></Ionicons>

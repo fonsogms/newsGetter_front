@@ -13,7 +13,7 @@ const BackButton = () => {
         navigation.goBack();
       }}
     >
-      <Ionicons name="ios-arrow-back" size={29} color="white" />
+      <Ionicons name="ios-chevron-back-outline" size={29} color="white" />
     </TouchableOpacity>
   );
 };

@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Logo from "./components/Logo";
 import Index from "./components/index/Indice";
 import { useFonts } from "@expo-google-fonts/inter";
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import NewsList from "./components/newsFeed/NewsList";
 import { navigationRef } from "./RouteNavigation";
 import Registration from "./components/registration/Registration";

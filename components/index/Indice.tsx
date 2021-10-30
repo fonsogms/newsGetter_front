@@ -40,6 +40,7 @@ const Indice = (props) => {
   const onSubmit = async (): Promise<void> => {
     console.log(username, password);
     try {
+      console.log(url);
       const { data } = await axios.post<{ token: string }>(
         url + "/api/auth/signin",
         {
@@ -47,12 +48,13 @@ const Indice = (props) => {
           password: password.value,
         }
       );
+      console.log(data, "the data");
       await AsyncStorage.setItem("token", data.token);
       setToken(data.token);
 
       setErrors([]);
     } catch (err) {
-      console.log(err);
+      console.warn(err.response.data.message, "the error");
       if (err.response.data.message) {
         console.log(typeof err.response.data.message);
 

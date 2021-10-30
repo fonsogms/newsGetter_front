@@ -20,7 +20,7 @@ const ModalMenu = (props) => {
         }}
         style={ModalStyles.logoutTouchable}
       >
-        <Ionicons name="ios-log-out" size={30} color={theme.green} />
+        <Ionicons name="log-out-outline" size={30} color={theme.green} />
         <Text style={ModalStyles.logoutText}>Logout</Text>
       </TouchableOpacity>
       <View
