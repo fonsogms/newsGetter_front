@@ -24,7 +24,6 @@ const NewsList = (props) => {
   const [limit, setLimit] = useState<number>(0);
 
   useEffect(() => {
-    console.warn("pasa?", props.route.params);
     if (!props.route.params) {
       getArticles(Category.GENERAL, limit);
     } else {
@@ -83,7 +82,7 @@ const NewsList = (props) => {
     );
   };
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <NavbarHeader hideBackButton={true} showBurgerMenu></NavbarHeader>
 
       <View>

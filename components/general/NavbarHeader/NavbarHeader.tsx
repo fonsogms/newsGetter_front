@@ -35,7 +35,10 @@ const NavbarHeader = ({
         </View>
       </View>
       {showBurgerMenu && (
-        <Modalize modalStyle={{ backgroundColor: "white" }} ref={modalizeRef}>
+        <Modalize
+          modalStyle={{ backgroundColor: "white", flex: 0.5 }}
+          ref={modalizeRef}
+        >
           <ModalMenu setToken={setToken}></ModalMenu>
         </Modalize>
       )}

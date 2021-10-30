@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { url } from "../../globalVariables";
 import { loginButton, createAccountText, links } from "./styles";
 
@@ -27,7 +27,7 @@ interface Password {
 const Indice = (props) => {
   const { token, setToken } = useRootContext();
   const [errors, setErrors] = useState<string[]>([]);
-
+  const { apiError, setApiError } = useRootContext();
   const [username, setUsername] = useState<Username>({
     value: "username",
     isClean: false,
@@ -56,9 +56,13 @@ const Indice = (props) => {
       if (err.response.data.message) {
         console.log(typeof err.response.data.message);
 
-        if (typeof err.response.data.message == "string")
+        if (typeof err.response.data.message == "string") {
           setErrors([err.response.data.message]);
-        else setErrors([...err.response.data.message]);
+          setApiError([err.response.data.message]);
+        } else {
+          setErrors([...err.response.data.message]);
+          setApiError([err.response.data.message]);
+        }
       }
     }
   };

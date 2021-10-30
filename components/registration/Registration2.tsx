@@ -64,7 +64,7 @@ const Registration2 = ({ route, navigation, setToken }) => {
         <Text
           style={{
             ...title.container,
-            fontFamily: "Mohave-Bold",
+            fontFamily: theme.mohave_Bold,
             marginBottom: 20,
           }}
         >
@@ -77,7 +77,6 @@ const Registration2 = ({ route, navigation, setToken }) => {
         <Text
           style={{
             ...title.container,
-            fontFamily: theme.green,
             margin: 30,
           }}
         >

@@ -8,7 +8,6 @@ import { theme } from "../../../theme";
 
 const ModalMenu = (props) => {
   const logout = async () => {
-    console.warn("happens");
     await AsyncStorage.setItem("token", "");
     props.setToken("");
     RootNavigation.navigate("Home", {});

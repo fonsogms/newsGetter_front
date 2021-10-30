@@ -7,7 +7,6 @@ import { useNavigation, useNavigationState } from "@react-navigation/native";
 const BackButton = () => {
   const navigation = useNavigation();
   const state = useNavigationState((state) => state);
-  console.warn(state.index);
   return (
     <TouchableOpacity
       onPress={() => {

@@ -6,10 +6,13 @@ import { url } from "./globalVariables";
 import { ActivityIndicator, View } from "react-native";
 import { theme } from "./theme";
 import { RootContext } from "./rootContext";
+import Modal from "react-native-modal";
+import ErrorModal from "./components/general/ErrorModal/ErrorModal";
 
 export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
+  const [apiError, setApiError] = useState<string[]>([]);
   useEffect(() => {
     async function getToken() {
       try {
@@ -41,8 +44,9 @@ export default function App() {
   }
 
   return (
-    <RootContext.Provider value={{ token, setToken }}>
+    <RootContext.Provider value={{ token, setToken, apiError, setApiError }}>
       <Routes style={{ flex: 1 }} token={token} setToken={setToken}></Routes>
+      <ErrorModal></ErrorModal>
     </RootContext.Provider>
   );
 }

@@ -4,7 +4,6 @@ import { WebView } from "react-native-webview";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 
 const ArticleWeb = ({ route }) => {
-  console.warn(route);
   return (
     <View style={{ height: "100%" }}>
       <NavbarHeader></NavbarHeader>

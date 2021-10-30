@@ -8,6 +8,9 @@ interface Theme {
   mohave_medium: string;
   mohave_Bold: string;
   mohave_Regular: string;
+  white: string;
+  red: string;
+  darkRed: string;
 }
 
 export const theme: Theme = {
@@ -20,4 +23,7 @@ export const theme: Theme = {
   dark_grey: "#8C8C8C",
   light_grey: "#E5E5E5",
   grey: "#979494",
+  white: "white",
+  red: "red",
+  darkRed: "#c92a2a",
 };
