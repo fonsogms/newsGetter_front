@@ -1,0 +1,20 @@
+diff --git a/node_modules/react-native-select-dropdown/src/SelectDropdown.js b/node_modules/react-native-select-dropdown/src/SelectDropdown.js
+index 7cbe6d8..b2640b7 100644
+--- a/node_modules/react-native-select-dropdown/src/SelectDropdown.js
++++ b/node_modules/react-native-select-dropdown/src/SelectDropdown.js
+@@ -15,6 +15,7 @@ import {
+   ActivityIndicator,
+   Modal,
+   I18nManager,
++  Keyboard,
+ } from "react-native";
+ import _ from "lodash";
+ const { width, height } = Dimensions.get("window");
+@@ -212,6 +213,7 @@ const SelectDropdown = (
+   ///////////////////////////////////////////////////////
+   /* ******************** Methods ******************** */
+   const openDropdown = () => {
++    Keyboard.dismiss()
+     DropdownButton.current.measure((fx, fy, w, h, px, py) => {
+       // console.log('position y => ', py, '\nheight', h, '\nposition x => ', px)
+       if (height - 18 < py + h + dropdownHEIGHT) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, Text, Image } from "react-native";
+import { View, TextInput, TouchableOpacity, Text } from "react-native";
 import { theme } from "../../theme";
 import { buttonText, inputBox, inputText } from "../globalStyles";
 import { loginButton } from "../index/styles";
@@ -43,14 +43,13 @@ const SumbitUrlSection = ({
           value={urlInput}
         ></TextInput>
       </View>
-
       <SelectDropdown
         data={Object.keys(Category).map(
           (category) =>
             category.substring(0, 1) + category.substr(1).toLocaleLowerCase()
         )}
         // defaultValueByIndex={1}
-        // defaultValue={'Choose city'}
+        defaultValue={category}
         onSelect={(selectedItem, index) => {
           setCategory(selectedItem);
         }}
