@@ -30,7 +30,7 @@ export const CategoriesBar = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: theme.green,
-    height: screen.height * 0.03,
+    height: screen.height * 0.03 + 5,
     justifyContent: "space-around",
     alignItems: "center",
     borderBottomColor: theme.yellow,

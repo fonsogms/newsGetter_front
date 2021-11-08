@@ -35,7 +35,7 @@ const Routes = (props) => {
           <>
             <Stack.Screen
               options={{
-                title: "Newsfeed",
+                title: "NewsFeed",
               }}
               name="NewsFeed"
             >
@@ -61,7 +61,7 @@ const Routes = (props) => {
               }}
               name="AddUser"
             >
-              {(routeProps) => <AddUser {...routeProps}></AddUser>}
+              {() => <AddUser></AddUser>}
             </Stack.Screen>
           </>
         ) : (

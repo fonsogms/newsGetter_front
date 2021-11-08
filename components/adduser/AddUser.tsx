@@ -1,16 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Text, View, ActivityIndicator, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { url as apiUrl } from "../../globalVariables";
+import { useRootContext } from "../../rootContext";
 import { theme } from "../../theme";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
-import { title } from "../globalStyles";
+import { buttonText, title } from "../globalStyles";
+import { loginButton } from "../index/styles";
 import ButtonSection from "./ButtonSection";
 import PreviewArticle from "./PreviewArticle";
 import { PreviewArticleInterface, PreviewData } from "./previewData";
 import SumbitUrlSection from "./SumbitUrlSection";
+import * as RootNavigation from "../../RouteNavigation";
 
-const AddUser = (props) => {
+const AddUser = () => {
   const [urlInput, setUrlInput] = useState<string>("Paste your url here");
   const [loading, setLoading] = useState<boolean>(false);
   const [previewArticle, setPreviewArticle] = useState<PreviewArticleInterface>(
@@ -21,13 +25,15 @@ const AddUser = (props) => {
       siteName: "",
     }
   );
+  const { token } = useRootContext();
   const [category, setCategory] = useState<string>("Choose category");
   const [isArticleSaved, setIsArticleSaved] = useState(false);
   const getPreviewData = async (url: string) => {
     setLoading(true);
     try {
       const { data: previewData } = await axios.get<PreviewData>(
-        apiUrl + "/api/urlPreview?url=" + url
+        apiUrl + "/api/urlPreview?url=" + url,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const image = previewData.images[0];
       const { title, description, siteName } = previewData;
@@ -39,7 +45,7 @@ const AddUser = (props) => {
       });
       setLoading(false);
     } catch (err) {
-      console.warn(err);
+      console.warn(err.response.data);
       setLoading(false);
     }
   };
@@ -87,11 +93,26 @@ const AddUser = (props) => {
             )}
           </>
         ) : (
-          <View style={{ flex: 1, justifyContent: "space-around" }}>
+          <View
+            style={{
+              flex: 0.7,
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Text style={title.container}> Article saved</Text>
             <Image
               source={require("../../assets/output-onlinegiftools.gif")}
               style={{ width: 200, height: 200 }}
             />
+            <TouchableOpacity
+              onPress={() => {
+                RootNavigation.navigate("NewsFeed", {});
+              }}
+              style={{ ...loginButton.container, width: 80 }}
+            >
+              <Text style={buttonText.container}>Go back</Text>
+            </TouchableOpacity>
           </View>
         )}
       </View>

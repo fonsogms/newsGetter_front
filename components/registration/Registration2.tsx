@@ -42,7 +42,7 @@ const Registration2 = ({ route, navigation, setToken }) => {
         }
       );
       setToken(data.token);
-      navigation.navigate("Newsfeed", {});
+      navigation.navigate("NewsFeed", {});
 
       setErrors([]);
     } catch (err) {
