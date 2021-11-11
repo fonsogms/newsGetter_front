@@ -8,13 +8,15 @@ const BackButton = () => {
   const navigation = useNavigation();
   const state = useNavigationState((state) => state);
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.goBack();
-      }}
-    >
-      <Ionicons name="ios-chevron-back-outline" size={29} color="white" />
-    </TouchableOpacity>
+    <View style={{ flex: 0.33 }}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Ionicons name="ios-chevron-back-outline" size={29} color="white" />
+      </TouchableOpacity>
+    </View>
   );
 };
 

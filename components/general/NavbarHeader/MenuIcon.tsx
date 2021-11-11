@@ -5,13 +5,20 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 const MenuIcon = ({ onOpen }: { onOpen: Function }) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        onOpen();
+    <View
+      style={{
+        flex: 0.33,
       }}
     >
-      <Ionicons name="ios-menu" size={29} color="white" />
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={{ alignSelf: "flex-end" }}
+        onPress={() => {
+          onOpen();
+        }}
+      >
+        <Ionicons name="md-menu" size={35} color="white" />
+      </TouchableOpacity>
+    </View>
   );
 };
 

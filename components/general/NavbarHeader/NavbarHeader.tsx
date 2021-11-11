@@ -24,13 +24,18 @@ const NavbarHeader = ({
     <>
       <View style={headerStyle.container}>
         <View style={innerHeaderStyle.container}>
-          {hideBackButton ? <View></View> : <BackButton></BackButton>}
-
-          <Logo></Logo>
+          {hideBackButton ? (
+            <View style={{ flex: 0.33 }}></View>
+          ) : (
+            <BackButton></BackButton>
+          )}
+          <View style={{ flex: 0.33 }}>
+            <Logo></Logo>
+          </View>
           {showBurgerMenu ? (
             <MenuIcon onOpen={onOpen}></MenuIcon>
           ) : (
-            <View></View>
+            <View style={{ flex: 0.33 }}></View>
           )}
         </View>
       </View>

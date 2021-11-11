@@ -10,12 +10,10 @@ export const headerStyle = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 5,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
-    elevation: 5,
   },
 });
 export const innerHeaderStyle = StyleSheet.create({
