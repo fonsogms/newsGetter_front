@@ -4,6 +4,7 @@ import { TouchableOpacity, View, Text } from "react-native";
 import { url as apiUrl } from "../../globalVariables";
 import { useRootContext } from "../../rootContext";
 import { theme } from "../../theme";
+import GenericButton from "../general/GenericButton";
 import { buttonText, inputText } from "../globalStyles";
 import { loginButton } from "../index/styles";
 import { PreviewArticleInterface } from "./previewData";

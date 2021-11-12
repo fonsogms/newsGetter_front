@@ -16,7 +16,12 @@ const PreviewArticle = ({
 }: PreviewArticleInterface) => {
   return (
     <View>
-      <View style={articleMainStyle.container}>
+      <View
+        style={{
+          ...articleMainStyle.container,
+          marginBottom: 15,
+        }}
+      >
         <TouchableOpacity onPress={() => {}}>
           <Image
             style={{ width: "100%", height: 200, resizeMode: "cover" }}

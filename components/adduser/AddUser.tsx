@@ -13,6 +13,7 @@ import PreviewArticle from "./PreviewArticle";
 import { PreviewArticleInterface, PreviewData } from "./previewData";
 import SumbitUrlSection from "./SumbitUrlSection";
 import * as RootNavigation from "../../RouteNavigation";
+import GenericButton from "../general/GenericButton";
 
 const AddUser = () => {
   const [urlInput, setUrlInput] = useState<string>("Paste your url here");
@@ -55,39 +56,48 @@ const AddUser = () => {
       <View
         style={{
           alignItems: "center",
+          justifyContent: "center",
           flex: 1,
         }}
       >
         {!isArticleSaved ? (
           <>
-            <Text style={{ ...title.container, marginTop: 40, flex: 0.2 }}>
-              Add here the url of the article you want to add
-            </Text>
             {!loading ? (
-              previewArticle.title ? (
-                <View>
-                  <PreviewArticle
-                    title={previewArticle.title}
-                    description={previewArticle.description}
-                    image={previewArticle.image}
-                    siteName={previewArticle.siteName}
-                  ></PreviewArticle>
-                  <ButtonSection
-                    setPreviewArticle={setPreviewArticle}
+              <>
+                <Text
+                  style={{
+                    ...title.container,
+                    width: "80%",
+                    marginBottom: "10%",
+                  }}
+                >
+                  Add here the url of the article you want to add
+                </Text>
+                {previewArticle.title ? (
+                  <View style={{ flex: 0.8 }}>
+                    <PreviewArticle
+                      title={previewArticle.title}
+                      description={previewArticle.description}
+                      image={previewArticle.image}
+                      siteName={previewArticle.siteName}
+                    ></PreviewArticle>
+                    <ButtonSection
+                      setPreviewArticle={setPreviewArticle}
+                      urlInput={urlInput}
+                      category={category}
+                      setIsArticleSaved={setIsArticleSaved}
+                    ></ButtonSection>
+                  </View>
+                ) : (
+                  <SumbitUrlSection
+                    setUrlInput={setUrlInput}
                     urlInput={urlInput}
+                    getPreviewData={getPreviewData}
                     category={category}
-                    setIsArticleSaved={setIsArticleSaved}
-                  ></ButtonSection>
-                </View>
-              ) : (
-                <SumbitUrlSection
-                  setUrlInput={setUrlInput}
-                  urlInput={urlInput}
-                  getPreviewData={getPreviewData}
-                  category={category}
-                  setCategory={setCategory}
-                ></SumbitUrlSection>
-              )
+                    setCategory={setCategory}
+                  ></SumbitUrlSection>
+                )}
+              </>
             ) : (
               <ActivityIndicator size="large" color={theme.green} />
             )}
@@ -105,14 +115,16 @@ const AddUser = () => {
               source={require("../../assets/output-onlinegiftools.gif")}
               style={{ width: 200, height: 200 }}
             />
-            <TouchableOpacity
+
+            <GenericButton
+              buttonStyle={{ width: 120, height: 40 }}
+              textStyle={{ fontSize: 25 }}
               onPress={() => {
                 RootNavigation.navigate("NewsFeed", {});
               }}
-              style={{ ...loginButton.container, width: 80 }}
             >
-              <Text style={buttonText.container}>Go back</Text>
-            </TouchableOpacity>
+              Go back
+            </GenericButton>
           </View>
         )}
       </View>

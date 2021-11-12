@@ -6,6 +6,7 @@ import { loginButton } from "../index/styles";
 import SelectDropdown from "react-native-select-dropdown";
 import { Ionicons } from "@expo/vector-icons";
 import { Category } from "../newsFeed/article.interface";
+import GenericButton from "../general/GenericButton";
 
 interface SumbitUrlSectionProps {
   setUrlInput: React.Dispatch<React.SetStateAction<string>>;
@@ -25,8 +26,9 @@ const SumbitUrlSection = ({
     <View
       style={{
         width: "100%",
-        flex: 1,
         alignItems: "center",
+        justifyContent: "center",
+        paddingBottom: "20%",
       }}
     >
       <View style={{ ...inputBox.container, width: "60%" }}>
@@ -91,18 +93,15 @@ const SumbitUrlSection = ({
         dropdownIconPosition="right"
       />
 
-      <TouchableOpacity
-        style={{
-          ...loginButton.container,
-          width: 100,
-          marginTop: 20,
-        }}
+      <GenericButton
+        buttonStyle={{ width: 110, height: 40, marginTop: 20 }}
+        textStyle={{ fontSize: 25 }}
         onPress={() => {
           getPreviewData(urlInput);
         }}
       >
-        <Text style={{ ...buttonText.container }}>Submit</Text>
-      </TouchableOpacity>
+        Submit
+      </GenericButton>
     </View>
   );
 };
