@@ -17,7 +17,6 @@ import AddUser from "./components/adduser/AddUser";
 const Routes = (props) => {
   const { token, setToken } = useRootContext();
   const Stack = createStackNavigator();
-
   let [fontsLoaded] = useFonts({
     "Mohave-Medium": require("./assets/fonts/Mohave-Medium.otf"),
     "Mohave-Bold": require("./assets/fonts/Mohave-Bold.otf"),

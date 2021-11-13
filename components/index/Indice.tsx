@@ -16,6 +16,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { useRootContext } from "../../rootContext";
+import { apiService } from "../../services/apiService";
 interface Username {
   value: string;
   isClean: boolean;
@@ -38,34 +39,12 @@ const Indice = (props) => {
   });
 
   const onSubmit = async (): Promise<void> => {
-    console.log(username, password);
     try {
-      console.log(url);
-      const { data } = await axios.post<{ token: string }>(
-        url + "/api/auth/signin",
-        {
-          username: username.value,
-          password: password.value,
-        }
-      );
-      console.log(data, "the data");
+      const data = await apiService.login(username.value, password.value);
       await AsyncStorage.setItem("token", data.token);
       setToken(data.token);
-
-      setErrors([]);
     } catch (err) {
-      console.warn(err.response.data.message, "the error");
-      if (err.response.data.message) {
-        console.log(typeof err.response.data.message);
-
-        if (typeof err.response.data.message == "string") {
-          setErrors([err.response.data.message]);
-          setApiError([err.response.data.message]);
-        } else {
-          setErrors([...err.response.data.message]);
-          setApiError([err.response.data.message]);
-        }
-      }
+      apiService.handleError(err);
     }
   };
   useEffect(() => {

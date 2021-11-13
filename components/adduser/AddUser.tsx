@@ -46,7 +46,6 @@ const AddUser = () => {
       });
       setLoading(false);
     } catch (err) {
-      console.warn(err.response.data);
       setLoading(false);
     }
   };
