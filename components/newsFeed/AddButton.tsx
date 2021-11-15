@@ -8,9 +8,8 @@ export const AddButton = (props) => {
   return (
     <TouchableOpacity
       style={{
-        alignItems: "center",
-        justifyContent: "center",
         width: 70,
+        alignItems: "center",
         position: "absolute",
         bottom: screen.height * 0.15,
         right: screen.width * 0.05,
@@ -31,7 +30,18 @@ export const AddButton = (props) => {
         Navigator.navigate("AddArticle", {});
       }}
     >
-      <Ionicons name="ios-add" size={55} color={"white"}></Ionicons>
+      <Ionicons
+        name="md-add"
+        size={60}
+        style={{
+          marginTop: 4,
+          marginBottom: 6,
+          marginRight: 5,
+          width: 50,
+          height: 50,
+        }}
+        color={"white"}
+      ></Ionicons>
     </TouchableOpacity>
   );
 };
