@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
-import axios from "axios";
-import { url } from "../../globalVariables";
 import { loginButton, createAccountText, links } from "./styles";
 
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
@@ -26,9 +24,7 @@ interface Password {
   isClean: boolean;
 }
 const Indice = (props) => {
-  const { token, setToken } = useRootContext();
-  const [errors, setErrors] = useState<string[]>([]);
-  const { apiError, setApiError } = useRootContext();
+  const { setToken } = useRootContext();
   const [username, setUsername] = useState<Username>({
     value: "username",
     isClean: false,
@@ -47,13 +43,6 @@ const Indice = (props) => {
       apiService.handleError(err);
     }
   };
-  useEffect(() => {
-    if (token) {
-      props.navigation.navigate("NewsFeed", {
-        token: token,
-      });
-    }
-  }, [token]);
 
   return (
     <View>
@@ -114,21 +103,6 @@ const Indice = (props) => {
           style={{ height: 100, resizeMode: "contain" }}
           source={require("../../assets/logo.png")}
         ></Image>
-        {errors &&
-          errors.map((elem) => {
-            return (
-              <Text
-                style={{
-                  ...title.container,
-                  color: "red",
-                  fontSize: 20,
-                  margin: 5,
-                }}
-              >
-                {elem[0].toLocaleUpperCase() + elem.slice(1)}
-              </Text>
-            );
-          })}
       </View>
     </View>
   );

@@ -1,8 +1,5 @@
-import axios, { AxiosError } from "axios";
-import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
-import { Text, View } from "react-native";
-import { url } from "../../globalVariables";
-import { BlurView } from "expo-blur";
+import React, { useEffect, useState, useRef } from "react";
+import { View } from "react-native";
 
 import {
   Category,
@@ -15,34 +12,33 @@ import Categories from "./Categories";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { useRootContext } from "../../rootContext";
 import { AddButton } from "./AddButton";
+import { apiService } from "../../services/apiService";
 
 const NewsList = (props) => {
-  const { token, setToken } = useRootContext();
+  const { token } = useRootContext();
   const flatListContainer = useRef(null);
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
   const [limit, setLimit] = useState<number>(0);
 
   useEffect(() => {
-    if (!props.route.params) {
-      getArticles(Category.GENERAL, limit);
-    } else {
-      getArticles(props.route.params.selectedCategory, limit);
+    if (token) {
+      if (!props.route.params) {
+        getArticles(Category.GENERAL, 0);
+      } else {
+        getArticles(props.route.params.selectedCategory, limit);
+      }
     }
   }, [props.route, limit]);
   async function getArticles(category: Category, limit: number) {
     try {
-      const { data } = await axios.get<{
-        articles: DBArticleInterface[];
-        votes: VoteInterface[];
-      }>(url + `/api/news?category=${category}&limit=${limit}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const data = await apiService.getArticles(category, limit);
+
       const { articles: apiArticles, votes } = data;
       setArticles([...articles, ...apiArticles]);
       setVotes(votes);
     } catch (err) {
-      console.log(err.response.data.message);
+      apiService.handleError(err);
     }
   }
   const item = ({ item: article }: { item: DBArticleInterface }) => {

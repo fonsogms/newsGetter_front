@@ -11,6 +11,8 @@ export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
   const [apiError, setApiError] = useState<string[]>([]);
+  apiService.setToken(token);
+
   useEffect(() => {
     apiService.init(setApiError);
     getToken();
@@ -26,7 +28,6 @@ export default function App() {
   };
   useEffect(() => {
     setLoading(false);
-    apiService.setToken(token);
   }, [token]);
 
   if (loading) {

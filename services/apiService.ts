@@ -2,6 +2,10 @@ import axios, { AxiosError, AxiosInstance } from "axios";
 import { url } from "../globalVariables";
 import { PoliticalInclination } from "../components/registration/Registration2";
 import { PreviewData } from "../components/AddArticle/previewData";
+import {
+  DBArticleInterface,
+  VoteInterface,
+} from "../components/newsFeed/article.interface";
 class ApiService {
   token: string;
   url: string;
@@ -93,7 +97,6 @@ class ApiService {
     return previewData;
   }
   async saveArticle(urlInput: string, category: string) {
-    console.warn(category.toLocaleLowerCase());
     const { data } = await this.initCall().post<{ success: boolean }>(
       "/api/news/add",
       {
@@ -101,6 +104,29 @@ class ApiService {
         category: category.toLocaleUpperCase(),
       }
     );
+    return data;
+  }
+
+  async getArticles(category: string, limit: number) {
+    const { data } = await this.initCall().get<{
+      articles: DBArticleInterface[];
+      votes: VoteInterface[];
+    }>(`/api/news?category=${category}&limit=${limit}`);
+    return data;
+  }
+  async viewArticle(index, source) {
+    const data = await this.initCall().post("/api/news/view", {
+      articleId: index,
+      publisherId: source.id,
+    });
+    return data;
+  }
+  async voteArticle(index, curVoteVal, publisher) {
+    const { data } = await this.initCall().post(url + "/api/news/vote", {
+      articleId: index,
+      value: curVoteVal,
+      publisherId: publisher.id,
+    });
     return data;
   }
 }

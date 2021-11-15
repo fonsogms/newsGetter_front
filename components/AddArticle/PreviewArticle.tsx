@@ -21,7 +21,6 @@ const PreviewArticle = ({
         return descriptionArray[0];
       } else {
         descriptionArray = newDescription.split(",");
-        console.warn("pasa");
         return descriptionArray[0];
       }
     }

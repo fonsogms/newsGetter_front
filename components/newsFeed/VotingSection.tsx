@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Animated, View, Image, Text, TouchableOpacity } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import axios, { AxiosError } from "axios";
-import { url } from "../../globalVariables";
 import { theme } from "../../theme";
+import { apiService } from "../../services/apiService";
 
 //@refresh reset
 const VotingSection = ({
@@ -49,23 +47,17 @@ const VotingSection = ({
     }
   }, [curVoteVal]);
   const voting = async () => {
-    axios
-      .post(
-        url + "/api/news/vote",
-        {
-          articleId: index,
-          value: curVoteVal,
-          publisherId: publisher.id,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setVotes(res.data.votes);
-      })
-      .catch((err: AxiosError) => {
-        console.log(err.response.data.message);
-      });
+    try {
+      const data = await apiService.voteArticle(
+        index,
+        curVoteVal,
+        publisher.id
+      );
+
+      setVotes(data.votes);
+    } catch (err) {
+      apiService.handleError(err);
+    }
   };
   return (
     <View style={{ alignItems: "center" }}>
