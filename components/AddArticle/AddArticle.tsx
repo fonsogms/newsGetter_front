@@ -1,21 +1,18 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Text, View, ActivityIndicator, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { url as apiUrl } from "../../globalVariables";
 import { useRootContext } from "../../rootContext";
 import { theme } from "../../theme";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
-import { buttonText, title } from "../globalStyles";
-import { loginButton } from "../index/styles";
+import { title } from "../globalStyles";
 import ButtonSection from "./ButtonSection";
 import PreviewArticle from "./PreviewArticle";
-import { PreviewArticleInterface, PreviewData } from "./previewData";
+import { PreviewArticleInterface } from "./previewData";
 import SumbitUrlSection from "./SumbitUrlSection";
 import * as RootNavigation from "../../RouteNavigation";
 import GenericButton from "../general/GenericButton";
+import { apiService } from "../../services/apiService";
 
-const AddUser = () => {
+const AddArticle = () => {
   const [urlInput, setUrlInput] = useState<string>("Paste your url here");
   const [loading, setLoading] = useState<boolean>(false);
   const [previewArticle, setPreviewArticle] = useState<PreviewArticleInterface>(
@@ -27,15 +24,12 @@ const AddUser = () => {
     }
   );
   const { token } = useRootContext();
-  const [category, setCategory] = useState<string>("Choose category");
+  const [category, setCategory] = useState<string>("");
   const [isArticleSaved, setIsArticleSaved] = useState(false);
   const getPreviewData = async (url: string) => {
     setLoading(true);
     try {
-      const { data: previewData } = await axios.get<PreviewData>(
-        apiUrl + "/api/urlPreview?url=" + url,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const previewData = await apiService.previewArticle(url);
       const image = previewData.images[0];
       const { title, description, siteName } = previewData;
       setPreviewArticle({
@@ -47,6 +41,7 @@ const AddUser = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
+      apiService.handleError(err);
     }
   };
   return (
@@ -67,7 +62,7 @@ const AddUser = () => {
                   style={{
                     ...title.container,
                     width: "80%",
-                    marginBottom: "10%",
+                    marginBottom: "7%",
                   }}
                 >
                   Add here the url of the article you want to add
@@ -131,4 +126,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddArticle;

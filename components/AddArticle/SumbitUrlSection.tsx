@@ -78,7 +78,7 @@ const SumbitUrlSection = ({
           color: theme.grey,
           fontFamily: theme.mohave_medium,
         }}
-        defaultButtonText={category}
+        defaultButtonText={"Choose a category"}
         buttonTextAfterSelection={(selectedItem) => selectedItem}
         rowTextForSelection={(item) => item}
         renderDropdownIcon={() => (

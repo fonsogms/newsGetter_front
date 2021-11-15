@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { Button, Text, View } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { buttonText, main, title } from "../globalStyles";
 import { continueButton } from "./style";
-import { url } from "../../globalVariables";
-import axios from "axios";
 import PoliticalComponent from "./PoliticalComponent";
 import SelectCountry from "./SelectCountry";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { theme } from "../../theme";
+import { apiService } from "../../services/apiService";
+export enum PoliticalInclination {
+  LEFT = "Left",
+  RIGHT = "Right",
+  CENTER_RIGHT = "Center_right",
+  CENTER_LEFT = "Center_left",
+}
 const Registration2 = ({ route, navigation, setToken }) => {
-  enum PoliticalInclination {
-    LEFT = "Left",
-    RIGHT = "Right",
-    CENTER_RIGHT = "Center_right",
-    CENTER_LEFT = "Center_left",
-  }
   const [selectedLocations, setSelectedLocations] = useState({
     id: "",
     item: "",
@@ -24,27 +23,15 @@ const Registration2 = ({ route, navigation, setToken }) => {
   const [politicalInclination, setPoliticalInclination] =
     useState<PoliticalInclination | null>(null);
   const register = async () => {
-    console.log("updated");
     try {
-      console.log({
-        username: route.params.username,
-        password: route.params.password,
-        politicalInclination: politicalInclination,
-        country: selectedLocations.id,
-      });
-      const { data } = await axios.post<{ token: string }>(
-        url + "/api/auth/signup",
-        {
-          username: route.params.username,
-          password: route.params.password,
-          politicalInclination: politicalInclination,
-          country: selectedLocations.id,
-        }
+      const data = await apiService.register(
+        route.params.username,
+        route.params.password,
+        politicalInclination,
+        selectedLocations.id
       );
       setToken(data.token);
       navigation.navigate("NewsFeed", {});
-
-      setErrors([]);
     } catch (err) {
       if (typeof err.response.data.message == "string")
         setErrors([err.response.data.message]);

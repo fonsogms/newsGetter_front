@@ -14,6 +14,18 @@ const PreviewArticle = ({
   image,
   siteName,
 }: PreviewArticleInterface) => {
+  const showDescription = (newDescription: string) => {
+    if (newDescription) {
+      let descriptionArray = newDescription.split(".");
+      if (descriptionArray.length > 1 && descriptionArray[0].length < 400) {
+        return descriptionArray[0];
+      } else {
+        descriptionArray = newDescription.split(",");
+        console.warn("pasa");
+        return descriptionArray[0];
+      }
+    }
+  };
   return (
     <View>
       <View
@@ -29,7 +41,9 @@ const PreviewArticle = ({
           ></Image>
           <View style={textViewStyle.container}>
             <Text style={titleStyle.container}>{title}</Text>
-            <Text style={descriptionStyle.container}>{description}</Text>
+            <Text style={descriptionStyle.container}>
+              {showDescription(description)}
+            </Text>
             <Text style={descriptionStyle.container}>Fuente: {siteName}</Text>
           </View>
         </TouchableOpacity>

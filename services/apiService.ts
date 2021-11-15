@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { url } from "../globalVariables";
-
+import { PoliticalInclination } from "../components/registration/Registration2";
+import { PreviewData } from "../components/AddArticle/previewData";
 class ApiService {
   token: string;
   url: string;
@@ -39,6 +40,7 @@ class ApiService {
   handleError(err: Error | AxiosError) {
     if (axios.isAxiosError(err)) {
       const axiosErr = err as AxiosError;
+
       this.setApiError([axiosErr.response.data.message]);
     } else {
       console.log(err);
@@ -49,7 +51,7 @@ class ApiService {
   async getToken(saved_token?: string) {
     try {
       const { data } = await this.initCall().post<{ token: string }>(
-        url + "/api/auth/loggedin",
+        "/api/auth/loggedin",
         { token: saved_token }
       );
       return data.token;
@@ -59,10 +61,44 @@ class ApiService {
   }
   async login(username: string, password: string) {
     const { data } = await this.initCall().post<{ token: string }>(
-      url + "/api/auth/signin",
+      "/api/auth/signin",
       {
         username: username,
         password: password,
+      }
+    );
+    return data;
+  }
+  async register(
+    username: string,
+    password: string,
+    politicalInclination: PoliticalInclination,
+    countryId: string
+  ) {
+    const { data } = await this.initCall().post<{ token: string }>(
+      "/api/auth/signup",
+      {
+        username: username,
+        password: password,
+        politicalInclination: politicalInclination,
+        country: countryId,
+      }
+    );
+    return data;
+  }
+  async previewArticle(url: string) {
+    const { data: previewData } = await this.initCall().get<PreviewData>(
+      "/api/urlPreview?url=" + url
+    );
+    return previewData;
+  }
+  async saveArticle(urlInput: string, category: string) {
+    console.warn(category.toLocaleLowerCase());
+    const { data } = await this.initCall().post<{ success: boolean }>(
+      "/api/news/add",
+      {
+        url: urlInput,
+        category: category.toLocaleUpperCase(),
       }
     );
     return data;

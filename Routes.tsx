@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Logo from "./components/Logo";
 import Index from "./components/index/Indice";
 import { useFonts } from "@expo-google-fonts/inter";
 import AppLoading from "expo-app-loading";
@@ -13,7 +11,7 @@ import Registration2 from "./components/registration/Registration2";
 import ArticleWeb from "./components/newsFeed/ArticleWeb";
 
 import { useRootContext } from "./rootContext";
-import AddUser from "./components/adduser/AddUser";
+import AddArticle from "./components/AddArticle/AddArticle";
 const Routes = (props) => {
   const { token, setToken } = useRootContext();
   const Stack = createStackNavigator();
@@ -56,11 +54,11 @@ const Routes = (props) => {
             </Stack.Screen>
             <Stack.Screen
               options={{
-                title: "AddUser",
+                title: "AddArticle",
               }}
-              name="AddUser"
+              name="AddArticle"
             >
-              {() => <AddUser></AddUser>}
+              {() => <AddArticle></AddArticle>}
             </Stack.Screen>
           </>
         ) : (

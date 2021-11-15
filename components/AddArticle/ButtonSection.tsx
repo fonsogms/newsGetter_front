@@ -1,11 +1,8 @@
-import axios from "axios";
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
-import { url as apiUrl } from "../../globalVariables";
-import { useRootContext } from "../../rootContext";
+import { apiService } from "../../services/apiService";
 import { theme } from "../../theme";
-import GenericButton from "../general/GenericButton";
-import { buttonText, inputText } from "../globalStyles";
+import { buttonText } from "../globalStyles";
 import { loginButton } from "../index/styles";
 import { PreviewArticleInterface } from "./previewData";
 
@@ -22,21 +19,23 @@ const ButtonSection = ({
   urlInput: string;
   setIsArticleSaved: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { token } = useRootContext();
   const cancelSubmission = () => {
     setPreviewArticle({ title: "", description: "", image: "", siteName: "" });
   };
   const saveArticle = async () => {
-    const { data } = await axios.post<{ success: boolean }>(
-      apiUrl + "/api/news/add",
-      {
-        url: urlInput,
-        category: category.toLocaleUpperCase(),
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    if (data.success) {
-      setIsArticleSaved(true);
+    try {
+      const data = await apiService.saveArticle(urlInput, category);
+      if (data.success) {
+        setIsArticleSaved(true);
+      }
+    } catch (err) {
+      apiService.handleError(err);
+      setPreviewArticle({
+        title: "",
+        description: "",
+        image: "",
+        siteName: "",
+      });
     }
   };
 

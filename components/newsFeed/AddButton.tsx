@@ -28,7 +28,7 @@ export const AddButton = (props) => {
         elevation: 3,
       }}
       onPress={() => {
-        Navigator.navigate("AddUser", {});
+        Navigator.navigate("AddArticle", {});
       }}
     >
       <Ionicons name="ios-add" size={55} color={"white"}></Ionicons>
