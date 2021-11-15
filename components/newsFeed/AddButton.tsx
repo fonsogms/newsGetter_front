@@ -36,7 +36,7 @@ export const AddButton = (props) => {
         style={{
           marginTop: 4,
           marginBottom: 6,
-          marginRight: 5,
+          marginRight: 6,
           width: 50,
           height: 50,
         }}
