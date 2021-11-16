@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NavbarHeader from "../general/NavbarHeader/NavbarHeader";
 import { useRootContext } from "../../rootContext";
 import { apiService } from "../../services/apiService";
+import GenericButton from "../general/GenericButton";
 interface Username {
   value: string;
   isClean: boolean;
@@ -70,6 +71,7 @@ const Indice = (props) => {
             <TextInput
               style={inputText.container}
               secureTextEntry={true}
+              onSubmitEditing={() => onSubmit()}
               onFocus={() => {
                 if (!password.isClean) {
                   setPassword({ value: "", isClean: true });
@@ -83,20 +85,21 @@ const Indice = (props) => {
           </View>
         </View>
         <View style={links.container}>
+          <GenericButton
+            onPress={() => {
+              onSubmit();
+            }}
+            buttonStyle={{ width: 100, height: 40 }}
+            textStyle={{ fontSize: 30 }}
+          >
+            Login
+          </GenericButton>
           <TouchableOpacity
             onPress={() => {
               props.navigation.navigate("Registration");
             }}
           >
             <Text style={createAccountText.container}>Create account</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={loginButton.container}
-            onPress={() => {
-              onSubmit();
-            }}
-          >
-            <Text style={buttonText.container}>Login</Text>
           </TouchableOpacity>
         </View>
         <Image

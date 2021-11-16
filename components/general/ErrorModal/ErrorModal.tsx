@@ -5,6 +5,7 @@ import { useRootContext } from "../../../rootContext";
 import { theme } from "../../../theme";
 import { buttonText, title } from "../../globalStyles";
 import { loginButton } from "../../index/styles";
+import GenericButton from "../GenericButton";
 const ErrorModal = () => {
   const { apiError, setApiError } = useRootContext();
   const isVisible = apiError[0] ? true : false;
@@ -12,10 +13,10 @@ const ErrorModal = () => {
     <Modal isVisible={isVisible} backdropOpacity={0.3}>
       <View
         style={{
-          flex: 0.2,
+          flex: 0.3,
           backgroundColor: theme.light_grey,
           borderRadius: 7,
-          width: "70%",
+          width: "80%",
           alignSelf: "center",
           alignItems: "center",
           justifyContent: "space-between",
@@ -41,20 +42,18 @@ const ErrorModal = () => {
             fontFamily: theme.mohave_Regular,
           }}
         >
-          {apiError[0]}
+          {console.warn(apiError[0])}
+          {apiError.join(" ")}
         </Text>
-        <TouchableOpacity
-          style={{
-            ...loginButton.container,
-            width: 100,
-            marginBottom: 20,
-          }}
+
+        <GenericButton
           onPress={() => {
             setApiError([]);
           }}
+          buttonStyle={{ width: 100, marginBottom: 20, height: 30 }}
         >
-          <Text style={{ ...buttonText.container }}>Cancel</Text>
-        </TouchableOpacity>
+          Cancel
+        </GenericButton>
       </View>
     </Modal>
   );
