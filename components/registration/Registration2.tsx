@@ -31,7 +31,6 @@ const Registration2 = ({ route, navigation, setToken }) => {
         selectedLocations.id
       );
       setToken(data.token);
-      navigation.navigate("NewsFeed", {});
     } catch (err) {
       if (typeof err.response.data.message == "string")
         setErrors([err.response.data.message]);

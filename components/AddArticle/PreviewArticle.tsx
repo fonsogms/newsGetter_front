@@ -15,9 +15,15 @@ const PreviewArticle = ({
   siteName,
 }: PreviewArticleInterface) => {
   const showDescription = (newDescription: string) => {
+    let descriptionArray = newDescription.split(".");
+
     if (newDescription) {
-      let descriptionArray = newDescription.split(".");
-      if (descriptionArray.length > 1 && descriptionArray[0].length < 400) {
+      if (newDescription.length < 400) {
+        return newDescription;
+      } else if (
+        descriptionArray.length > 1 &&
+        descriptionArray[0].length < 400
+      ) {
         return descriptionArray[0];
       } else {
         descriptionArray = newDescription.split(",");
