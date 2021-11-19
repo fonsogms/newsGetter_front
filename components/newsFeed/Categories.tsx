@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Category } from "./article.interface";
+import { Category, DBArticleInterface } from "./article.interface";
 import { CategoriesBar, CategoriesText } from "./styles";
-import { BoxShadow } from "react-native-shadow";
 const shadowOpt = {
   width: 100,
   height: 100,
@@ -19,8 +18,14 @@ const shadowOpt = {
 const Categories = ({
   selectedCategory,
   setArticles,
-  articles,
-  navigation,
+
+  setSearchQuery,
+}: {
+  selectedCategory: string;
+  setArticles: React.Dispatch<React.SetStateAction<DBArticleInterface[]>>;
+  setSearchQuery: React.Dispatch<
+    React.SetStateAction<{ category: string; limit: number }>
+  >;
 }) => {
   return (
     <View style={CategoriesBar.container}>
@@ -34,8 +39,9 @@ const Categories = ({
           <TouchableOpacity
             onPress={() => {
               setArticles([]);
-              navigation.navigate("NewsFeed", {
-                selectedCategory: category === "Tech" ? "TECHNOLOGY" : category,
+              setSearchQuery({
+                category: category === "Tech" ? "TECHNOLOGY" : category,
+                limit: 0,
               });
             }}
           >

@@ -96,12 +96,37 @@ class ApiService {
     );
     return previewData;
   }
-  async saveArticle(urlInput: string, category: string) {
+  urlInput: string;
+  title: string;
+  description: string;
+  image: string;
+  siteName: string;
+  category: string;
+  async saveArticle({
+    urlInput,
+    title,
+    description,
+    image,
+    siteName,
+    category,
+  }: {
+    urlInput: string;
+    title: string;
+    description: string;
+    image: string;
+    siteName: string;
+    category: string;
+  }) {
+    console.warn(siteName);
     const { data } = await this.initCall().post<{ success: boolean }>(
       "/api/news/add",
       {
         url: urlInput,
         category: category.toLocaleUpperCase(),
+        title,
+        description,
+        image,
+        siteName,
       }
     );
     return data;

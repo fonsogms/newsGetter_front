@@ -19,21 +19,22 @@ const NewsList = (props) => {
   const flatListContainer = useRef(null);
   const [articles, setArticles] = useState<DBArticleInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
-  const [limit, setLimit] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState<{
+    category: string;
+    limit: number;
+  }>({
+    category: Category.GENERAL,
+    limit: 0,
+  });
+  const { category, limit } = searchQuery;
 
   useEffect(() => {
-    if (token) {
-      if (!props.route.params) {
-        getArticles(Category.GENERAL, 0);
-      } else {
-        getArticles(props.route.params.selectedCategory, limit);
-      }
-    }
-  }, [props.route, limit]);
-  async function getArticles(category: Category, limit: number) {
+    getArticles();
+  }, [searchQuery]);
+
+  async function getArticles() {
     try {
       const data = await apiService.getArticles(category, limit);
-
       const { articles: apiArticles, votes } = data;
       setArticles([...articles, ...apiArticles]);
       setVotes(votes);
@@ -80,31 +81,27 @@ const NewsList = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <NavbarHeader hideBackButton={true} showBurgerMenu></NavbarHeader>
-
-      <View>
-        <Categories
-          selectedCategory={
-            props.route.params ? props.route.params.selectedCategory : "GENERAL"
+      <Categories
+        setSearchQuery={setSearchQuery}
+        selectedCategory={category}
+        setArticles={setArticles}
+      ></Categories>
+      <FlatList
+        style={{ height: "100%" }}
+        ref={flatListContainer}
+        refreshing={true}
+        data={articles}
+        renderItem={item}
+        onEndReached={() => {
+          // console.log("the end");
+          if (!(articles.length < 5)) {
+            console.log(articles[articles.length - 1].id);
+            setSearchQuery({ ...searchQuery, limit: limit + 5 });
           }
-          navigation={props.navigation}
-          articles={articles}
-          setArticles={setArticles}
-        ></Categories>
-
-        <FlatList
-          style={{ height: "100%" }}
-          ref={flatListContainer}
-          refreshing={true}
-          data={articles}
-          renderItem={item}
-          onEndReached={() => {
-            // console.log("the end");
-            setLimit(limit + 5);
-          }}
-          onEndReachedThreshold={0.9}
-          //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
-        ></FlatList>
-      </View>
+        }}
+        onEndReachedThreshold={0.3}
+        //setSearchQuery({ ...searchQuery, limit: searchQuery.limit + 5 });
+      ></FlatList>
       <AddButton navigate={props.navigation.navigate}></AddButton>
     </View>
   );

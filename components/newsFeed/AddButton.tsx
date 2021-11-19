@@ -11,7 +11,7 @@ export const AddButton = (props) => {
         width: 70,
         alignItems: "center",
         position: "absolute",
-        bottom: screen.height * 0.15,
+        bottom: screen.height * 0.12,
         right: screen.width * 0.05,
         height: 70,
         backgroundColor: theme.green,

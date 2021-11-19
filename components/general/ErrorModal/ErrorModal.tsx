@@ -3,8 +3,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import { useRootContext } from "../../../rootContext";
 import { theme } from "../../../theme";
-import { buttonText, title } from "../../globalStyles";
-import { loginButton } from "../../index/styles";
+import { title } from "../../globalStyles";
 import GenericButton from "../GenericButton";
 const ErrorModal = () => {
   const { apiError, setApiError } = useRootContext();
@@ -42,7 +41,6 @@ const ErrorModal = () => {
             fontFamily: theme.mohave_Regular,
           }}
         >
-          {console.warn(apiError[0])}
           {apiError.join(" ")}
         </Text>
 

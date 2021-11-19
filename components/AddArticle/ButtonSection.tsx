@@ -11,12 +11,14 @@ const ButtonSection = ({
   category,
   urlInput,
   setIsArticleSaved,
+  previewArticle,
 }: {
   setPreviewArticle: React.Dispatch<
     React.SetStateAction<PreviewArticleInterface>
   >;
   category: string;
   urlInput: string;
+  previewArticle: PreviewArticleInterface;
   setIsArticleSaved: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const cancelSubmission = () => {
@@ -24,7 +26,11 @@ const ButtonSection = ({
   };
   const saveArticle = async () => {
     try {
-      const data = await apiService.saveArticle(urlInput, category);
+      const data = await apiService.saveArticle({
+        ...previewArticle,
+        urlInput,
+        category,
+      });
       if (data.success) {
         setIsArticleSaved(true);
       }

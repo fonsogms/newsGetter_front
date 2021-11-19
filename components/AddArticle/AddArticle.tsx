@@ -23,7 +23,6 @@ const AddArticle = () => {
       siteName: "",
     }
   );
-  const { token } = useRootContext();
   const [category, setCategory] = useState<string>("");
   const [isArticleSaved, setIsArticleSaved] = useState(false);
   const getPreviewData = async (url: string) => {
@@ -80,6 +79,7 @@ const AddArticle = () => {
                       urlInput={urlInput}
                       category={category}
                       setIsArticleSaved={setIsArticleSaved}
+                      previewArticle={previewArticle}
                     ></ButtonSection>
                   </View>
                 ) : (
@@ -114,7 +114,7 @@ const AddArticle = () => {
               buttonStyle={{ width: 120, height: 40 }}
               textStyle={{ fontSize: 25 }}
               onPress={() => {
-                RootNavigation.navigate("NewsFeed", {});
+                RootNavigation.navigate("NewsFeed", { reload: true });
               }}
             >
               Go back
