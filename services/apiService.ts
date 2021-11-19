@@ -117,7 +117,6 @@ class ApiService {
     siteName: string;
     category: string;
   }) {
-    console.warn(siteName);
     const { data } = await this.initCall().post<{ success: boolean }>(
       "/api/news/add",
       {

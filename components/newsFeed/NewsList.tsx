@@ -29,6 +29,14 @@ const NewsList = (props) => {
   const { category, limit } = searchQuery;
 
   useEffect(() => {
+    // refresh page when coming from another screen
+    const willFocusSubscription = props.navigation.addListener("focus", () => {
+      setArticles([]);
+      setSearchQuery({ category: Category.GENERAL, limit: 0 });
+    });
+    return () => willFocusSubscription;
+  }, []);
+  useEffect(() => {
     getArticles();
   }, [searchQuery]);
 
